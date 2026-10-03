@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>名古屋旅遊儀表板 2026</title>
+    <style>
+        :root {
+            --primary: #4a90e2;
+            --primary-dark: #357abd;
+            --bg: #f4f6f9;
+            --card-bg: #ffffff;
+            --text: #333333;
+            --text-muted: #666666;
+            --border: #e1e8ed;
+            --accent: #e74c3c;
+            --success: #2ecc71;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            padding-bottom: 70px;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        /* 標頭與導覽列 */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        header p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        /* 日期快速滑動導覽列 */
+        .date-nav {
+            display: flex;
+            overflow-x: auto;
+            background: #fff;
+            padding: 10px;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 55px;
+            z-index: 90;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .date-btn {
+            background: #f0f2f5;
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            margin-right: 8px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text);
+            text-decoration: none;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+
+        .date-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* 底部 Tab 列 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: white;
+            display: flex;
+            border-top: 1px solid var(--border);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.75rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .nav-icon {
+            font-size: 1.2rem;
+            margin-bottom: 2px;
+        }
+
+        /* 主要內容分頁 */
+        .tab-content {
+            display: none;
+            padding: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* 卡片設計 */
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        .day-header {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--primary-dark);
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+            border-bottom: 2px solid var(--primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .item-row {
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed var(--border);
+        }
+
+        .item-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .item-title {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .item-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 3px;
+            padding-left: 20px;
+        }
+
+        .map-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #eef5fc;
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            margin-top: 5px;
+            margin-left: 20px;
+            font-weight: 500;
+        }
+
+        .reserve-btn {
+            background: #fdf2f2;
+            color: var(--accent);
+        }
+
+        /* 優惠券樣式 */
+        .coupon-link {
+            display: block;
+            text-align: center;
+            background: var(--primary);
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* 伴手禮清單 */
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .checklist-item input[type="checkbox"] {
+            margin-top: 4px;
+            width: 18px;
+            height: 18px;
+        }
+
+        /* 備忘錄區塊 */
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            resize: vertical;
+            font-size: 0.95rem;
+        }
+
+        .badge {
+            background: #e74c3c;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>名古屋專屬行程儀表板</h1>
+        <p>2026/10/12 - 10/19 (8天7夜)</p>
+    </header>
+
+    <!-- 底部導覽列 -->
+    <nav class="bottom-nav">
+        <button class="nav-item active" onclick="switchTab('itinerary', this)">
+            <span class="nav-icon">📅</span>
+            <span>每日行程</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('coupons', this)">
+            <span class="nav-icon">🎟️</span>
+            <span>優惠券</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('souvenirs', this)">
+            <span class="nav-icon">🛍️</span>
+            <span>伴手禮</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('notes', this)">
+            <span class="nav-icon">📝</span>
+            <span>旅遊筆記</span>
+        </button>
+    </nav>
+
+    <!-- Tab 1: 每日行程 -->
+    <div id="itinerary" class="tab-content active">
+        <!-- 日期導覽 -->
+        <div class="date-nav">
+            <a href="#day1" class="date-btn">10/12 (一)</a>
+            <a href="#day2" class="date-btn">10/13 (二)</a>
+            <a href="#day3" class="date-btn">10/14 (三)</a>
+            <a href="#day4" class="date-btn">10/15 (四)</a>
+            <a href="#day5" class="date-btn">10/16 (五)</a>
+            <a href="#day6" class="date-btn">10/17 (六)</a>
+            <a href="#day7" class="date-btn">10/18 (日)</a>
+            <a href="#day8" class="date-btn">10/19 (一)</a>
+        </div>
+
+        <!-- Day 1 -->
+        <div id="day1" class="card" style="margin-top: 15px;">
+            <div class="day-header">10/12 週一</div>
+            <div class="item-row">
+                <div class="item-title">🔖 名鐵百貨</div>
+                <div class="item-desc">- 4F 扭蛋機</div>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 Gate Tower</div>
+                <div class="item-desc">- 7F SARIO<br>- 晚餐：名古屋車站樓上</div>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 PARCO <span class="badge">代購鯛魚燒</span></div>
+                <div class="item-desc">- 西館 B1樓 鯛魚燒吉伊卡哇<br>- 晚餐：PARCO 7F 餐廳</div>
+            </div>
+        </div>
+
+        <!-- Day 2 -->
+        <div id="day2" class="card">
+            <div class="day-header">10/13 週二</div>
+            <div class="item-row">
+                <div class="item-title">🔖 PARCO</div>
+                <div class="item-desc">
+                    - 西館 B1樓 鯛魚燒吉伊卡哇<br>
+                    - 西館 8樓 哥吉拉專賣店<br>
+                    - 西館 8樓 吉伊卡哇餐廳 THE GUEST CAFE&DINER<br>
+                    - 東館 B1樓 快閃店 / 魔法少女<br>
+                    - 東館 2樓 寶可夢中心<br>
+                    - 東館 3樓 KIDDY LAND<br>
+                    - 東館 4樓 Animate / 扭蛋機<br>
+                    * B1、3F、7F 有連通，西館 7F 有餐廳
+                </div>
+                <a href="https://maps.app.goo.gl/BkWkeomPWyqhMi4v9?g_st=ic" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 Alpen NAGOYA</div>
+                <div class="item-desc">- 運動用品店（2F 可退稅）</div>
+                <a href="https://maps.app.goo.gl/d14Gv5TTcWvMyF4k8?g_st=ic" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 綠洲21</div>
+                <a href="https://maps.app.goo.gl/dv9VJr2DVWhjJhEt8?g_st=ic" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 中部電力未來塔</div>
+                <a href="https://maps.app.goo.gl/RbFgkz3kkP1WWybd7?g_st=ic" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+        </div>
+
+        <!-- Day 3 & 4 -->
+        <div id="day3" class="card">
+            <div class="day-header">10/14 週三</div>
+            <div class="item-desc">自由安排行程 / 彈性調整</div>
+        </div>
+
+        <div id="day4" class="card">
+            <div class="day-header">10/15 週四（周邊美食 & 大須）</div>
+            <div style="font-weight: bold; margin-bottom: 8px; color: var(--primary-dark);">🍢 美食推薦：</div>
+            <div class="item-row">
+                <div class="item-title">🔖 築地銀章魚</div>
+                <a href="https://maps.app.goo.gl/TiCw2sU2jcawrTh39?g_st=ic" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 銀之餡鯛魚燒</div>
+                <div class="item-desc">- 推薦脆皮布丁口味</div>
+                <a href="https://maps.app.goo.gl/45y16So6BsiX92Cf6?g_st=ic" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 御手洗糰子</div>
+                <a href="https://maps.app.goo.gl/hbwoggW9g27Gxn28A?g_st=ic" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 Konparu Osu 炸蝦三明治</div>
+                <a href="https://maps.app.goo.gl/VGg1GowZCF8DvqKc9?g_st=ic" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+
+            <div style="font-weight: bold; margin: 15px 0 8px 0; color: var(--primary-dark);">🛍️ 景點與購物：</div>
+            <div class="item-row">
+                <div class="item-title">🔖 大須觀音 <span class="badge">蓋御朱印</span></div>
+                <a href="https://maps.app.goo.gl/frACBVoMPiyVtyDu5?g_st=ic" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 大須觀音商店街</div>
+                <a href="https://maps.app.goo.gl/cm7XqVbLcrVapbgq8?g_st=ic" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 #C-pla 扭蛋機</div>
+                <div class="item-desc">- 2F 有一番賞</div>
+                <a href="https://maps.app.goo.gl/erszbtjBqpEJTNCDA?g_st=ic" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 駿河屋</div>
+                <a href="https://maps.app.goo.gl/brj7iDRW36uaPcU9A?g_st=ic" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 Taito Station Fedora Osu Store (夾娃娃機)</div>
+                <a href="https://maps.app.goo.gl/EBYQ4HpAwsuA8imXA?g_st=ic" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 Taito Station Osu Shop (夾娃娃機)</div>
+                <a href="https://maps.app.goo.gl/gAntKSf2cUozEMjf9?g_st=ic" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 Mandarake 名古屋店</div>
+                <div class="item-desc">- 滿 5000 日圓免稅</div>
+                <a href="https://maps.app.goo.gl/fJpDV5ZEFRFbv3QeA?g_st=ic" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 VOLKS 名古屋 Showroom</div>
+                <a href="https://maps.app.goo.gl/wnZhRHkVSGwEFNcU9?g_st=ic" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+        </div>
+
+        <!-- Day 5 -->
+        <div id="day5" class="card">
+            <div class="day-header">10/16 週五</div>
+            <div class="item-row">
+                <div class="item-title">🔖 JR 名古屋高島屋</div>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 Gate Tower Mall</div>
+                <div class="item-desc">- UNIQLO、GU、Sario、Hands、三省堂書店</div>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 BicCamera</div>
+                <div class="item-desc">- 營業至 9:00 PM</div>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 晚餐 7:15 PM 最飛びヒレ家 馬喰一代 名古屋EAST</div>
+                <a href="https://www.google.com/maps/reserve/bookings/detail?b=MM6nAUcGGw4" class="map-btn reserve-btn" target="_blank">🍽 預約連結</a>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 AEON MALL</div>
+                <a href="https://maps.app.goo.gl/pxugXgNytLxhJ1qU7?g_st=ic" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 AEON 太閤購物中心</div>
+                <div class="item-desc">- 24HR，無退稅</div>
+                <a href="https://maps.app.goo.gl/nohD83MEgPWUVNJj6?g_st=ic" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+        </div>
+
+        <!-- Day 6 -->
+        <div id="day6" class="card">
+            <div class="day-header">10/17 週六 (高山一日遊)</div>
+            <div class="item-desc" style="margin-bottom: 10px; color: var(--accent); font-weight: bold;">🚆 JR 到高山 (約 2.5 小時)</div>
+            
+            <div style="font-weight: bold; margin-bottom: 8px;">🐟 宮川朝市：</div>
+            <div class="item-row">
+                <div class="item-title">🔖 小瀬徳魚店 (賣牛奶)</div>
+                <a href="https://maps.app.goo.gl/ikpxYRqmRsjxvhrx5?g_st=ic" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 日々是好日</div>
+                <a href="https://maps.app.goo.gl/d1PvvUrKom7JPPUg9?g_st=ic" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+
+            <div style="font-weight: bold; margin: 15px 0 8px 0;">🍡 高山老街：</div>
+            <div class="item-row">
+                <div class="item-title">🔖 六拾番 rokujyu-ban</div>
+                <a href="https://maps.app.goo.gl/JGzAW5xyJaf8iG6Q7?g_st=ic" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 飛驒特牛壽司</div>
+                <a href="https://maps.app.goo.gl/fTbXgxcKbFA6YhE79?g_st=ic" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 金乃こって牛</div>
+                <a href="https://maps.app.goo.gl/CtuVvssPSuatWBaz9?g_st=ic" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 三町筋</div>
+                <a href="https://maps.app.goo.gl/zCxmpgCLoHsnjiDf7?g_st=ic" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 高山布丁亭</div>
+                <a href="https://maps.app.goo.gl/dScKfe62xUVXi3Gr8?g_st=ic" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+
+            <div style="font-weight: bold; margin: 15px 0 8px 0;">🍲 晚餐（擇一）：</div>
+            <div class="item-row">
+                <div class="item-title">🔖 美登利 / Konparu Sun Road / 麵家獅子丸 (排隊名店) / 麵屋優光</div>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 GiGO 娛樂中心</div>
+                <div class="item-desc">- 營業至 11:00 PM</div>
+                <a href="https://maps.app.goo.gl/e9NU3La8a5HF6rdXA?g_st=com.google.maps.preview.copy" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+        </div>
+
+        <!-- Day 7 -->
+        <div id="day7" class="card">
+            <div class="day-header">10/18 週日 (榮商圈巡禮)</div>
+            <div class="item-row">
+                <div class="item-title">🔖 早餐：早安名古屋</div>
+                <a href="https://maps.app.goo.gl/8kGVeUhuuV7UX65F6?g_st=com.google.maps.preview.copy" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+            <div class="item-desc" style="margin: 8px 0;">🚌 名鐵巴士坐公車到 Parco 西館後開始沿路逛到榮站附近：</div>
+            <div class="item-row">
+                <div class="item-title">🔖 PARCO</div>
+                <div class="item-desc">- 西館 B1 鯛魚燒吉伊卡哇 / 8F 哥吉拉 / 8F 吉伊卡哇餐廳<br>- 東館 B1 快閃店 / 2F 寶可夢 / 3F KIDDY LAND / 4F Animate</div>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 ZEROGATE (1F gashacoco 扭蛋機)</div>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 松坂屋 (南館 10F 中餐 矢場町豬排 / 本館 5F Sario)</div>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 LACHIC (Beams)</div>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 NOVA (3-6F LOFT)</div>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 Skyle (7F 大創)</div>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 Maruei Galleria (2F 無印良品)</div>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 納屋橋 唐吉軻德</div>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 晚餐 7:00 PM 鰻魚飯三吃 Hitsumabushi Bincho</div>
+                <a href="https://www.google.com/maps/reserve/bookings/detail?b=xntdK6MyHn8&pli=1" class="map-btn reserve-btn" target="_blank">🍽️ 預約連結</a>
+            </div>
+        </div>
+
+        <!-- Day 8 -->
+        <div id="day8" class="card">
+            <div class="day-header">10/19 週一</div>
+            <div class="item-row">
+                <div class="item-title">🔖 名鐵百貨 (4F 扭蛋機)</div>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 JR 高島屋 Takashimaya</div>
+                <div class="item-desc">- B1 地下街美食</div>
+                <a href="https://maps.app.goo.gl/Mq45jbfaVdKpgefAA?g_st=ic" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+            <div class="item-row">
+                <div class="item-title">🔖 JR Gate Tower</div>
+                <a href="https://maps.app.goo.gl/3LUN4zV9PdAhTHCi6?g_st=ic" class="map-btn" target="_blank">📍 地圖導航</a>
+            </div>
+
+            <div style="font-weight: bold; margin: 15px 0 8px 0; color: var(--text-muted);">📌 備用（名古屋車站附近行程）：</div>
+            <div class="item-desc">
+                - GiGO / 安利美特 / 永旺城太閤購物中心<br>
+                - Bic Camera 名古屋站西店 / ESCA 地下街 / Sun Road
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab 2: 優惠券 -->
+    <div id="coupons" class="tab-content">
+        <div class="card">
+            <div class="day-header">Bic Camera 優惠券</div>
+            <div class="item-desc">免稅 10% + 7% 折扣</div>
+            <a href="https://www.chictrip.com.tw/service/Coupon/4c7dde1b-cc14-4fa2-8b65-ffe92ef69683" class="coupon-link" target="_blank">🔗 開啟 Bic Camera 優惠券頁面</a>
+        </div>
+
+        <div class="card">
+            <div class="day-header">唐吉訶德 Don Quijote</div>
+            <div class="item-desc">免稅 10% + 5% 折扣</div>
+            <a href="https://www.donki.com/zh/campaign/chictrip" class="coupon-link" target="_blank">🔗 開啟唐吉訶德電子優惠券</a>
+        </div>
+
+        <div class="card">
+            <div class="day-header">NAGOYA PARCO 500日圓現金券</div>
+            <div class="item-desc">至西館 1F 服務台出示護照與此畫面即可領取。</div>
+            <div style="background:#fff9e6; border:1px solid #ffeaa7; padding:10px; border-radius:8px; margin-top:8px;">
+                <p style="font-weight:bold; color:#d35400;">GET! ¥500 NAGOYA PARCO CASH VOUCHER</p>
+                <p style="font-size:0.8rem; color:#7f8c8d; margin-top:4px;">Exchange Location: West Bldg. 1F Information Center<br>Kindly present your passport and this screen.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="day-header">大丸百貨 / 松坂屋百貨 購物優惠券</div>
+            <div class="item-desc">退稅 10% + 5% OFF + 贈送美食券（結帳出示下圖條碼）</div>
+            <div style="text-align:center; margin-top:10px; background:#fff; padding:10px; border-radius:8px; border:1px solid var(--border);">
+                <div style="font-size:1.2rem; font-weight:bold; color:var(--accent);">5% OFF + 贈送美食券</div>
+                <div style="font-size:0.8rem; color:var(--text-muted);">有效期限：至 2027 年 8 月 31 日</div>
+                <svg id="barcode" style="width:100%; max-height:80px; margin-top:10px;"></svg>
+                <p style="font-size:0.75rem; color:#999;">a0952350140000004545a</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab 3: 伴手禮清單 -->
+    <div id="souvenirs" class="tab-content">
+        <div class="card">
+            <div class="day-header">必買伴手禮 Check List</div>
+            <div class="checklist-item">
+                <input type="checkbox" id="s1"><label for="s1">坂角總本鋪 蝦餅</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="s2"><label for="s2">青柳總本家 小蛙饅頭 / 外郎餅</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="s3"><label for="s3">東海壽 小倉紅豆奶油夾心餅乾</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="s4"><label for="s4">千壽 炸蝦天婦羅飯糰</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="s5"><label for="s5">大須外郎餅</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="s6"><label for="s6">吉伊卡哇專賣店/鯛魚燒限定周邊</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab 4: 旅遊小天地筆記 -->
+    <div id="notes" class="tab-content">
+        <div class="card">
+            <div class="day-header">個人旅遊備忘錄</div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">輸入的內容會自動儲存在手機瀏覽器中，隨時開啟都能查看！</p>
+            <textarea id="travelNotes" placeholder="可以記錄護照號碼、飯店預約號碼、想買的東西等..."></textarea>
+        </div>
+    </div>
+
+    <script>
+        // Tab 切換 Logic
+        function switchTab(tabId, btn) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            btn.classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // 自動儲存與載入筆記
+        const notesArea = document.getElementById('travelNotes');
+        if (notesArea) {
+            notesArea.value = localStorage.getItem('nagoya_travel_notes') || '';
+            notesArea.addEventListener('input', () => {
+                localStorage.setItem('nagoya_travel_notes', notesArea.value);
+            });
+        }
+
+        // 自動儲存伴手禮勾選狀態
+        document.querySelectorAll('.checklist-item input[type="checkbox"]').forEach((chk, index) => {
+            const savedState = localStorage.getItem('souvenir_' + index);
+            if (savedState === 'true') chk.checked = true;
+            chk.addEventListener('change', () => {
+                localStorage.setItem('souvenir_' + index, chk.checked);
+            });
+        });
+    </script>
+</body>
+</html>
