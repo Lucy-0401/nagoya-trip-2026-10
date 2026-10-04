@@ -16,6 +16,8 @@
         --accent: #e74c3c;
         --food-bg: #fffaf0; 
         --food-border: #ffeeba; 
+        --chiikawa-color: #ffb6c1; /* 淡粉紅色 */
+        --chiikawa-dark: #ff8fab; /* 稍微深一點的粉紅供點擊/邊框用 */
     }
     * {
         box-sizing: border-box;
@@ -56,7 +58,6 @@
         margin-bottom: 12px;
     }
 
-    /* 頂部快速跳轉按鈕列：改為藍色背景與白色按鈕 */
     .nav-bar {
         display: flex;
         overflow-x: auto;
@@ -87,6 +88,16 @@
         color: var(--primary-dark);
         border-color: #ffffff;
     }
+    .nav-btn.important-nav {
+        background: #e74c3c;
+        border-color: #c0392b;
+        color: #ffffff;
+    }
+    .nav-btn.chiikawa-nav {
+        background: var(--chiikawa-dark);
+        border-color: var(--chiikawa-dark);
+        color: #ffffff;
+    }
 
     .container {
         max-width: 700px;
@@ -109,7 +120,23 @@
         border-bottom: 2px solid var(--primary);
         padding-bottom: 8px;
         margin-bottom: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
+    .day-title.important-title {
+        color: var(--accent);
+        border-bottom-color: var(--accent);
+    }
+    .day-title.gift-title {
+        color: #e67e22;
+        border-bottom-color: #e67e22;
+    }
+    .day-title.chiikawa-title {
+        color: #d87093;
+        border-bottom-color: var(--chiikawa-color);
+    }
+
     .item-list {
         list-style: none;
     }
@@ -163,6 +190,85 @@
         padding: 2px 0;
         margin: 2px 0;
     }
+
+    .upload-btn-label {
+        background-color: var(--chiikawa-dark);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+        display: inline-block;
+        text-align: center;
+        transition: background 0.3s;
+    }
+    .upload-btn-label:active {
+        background-color: #ff6f91;
+    }
+    #upload-input {
+        display: none;
+    }
+    .card-container {
+        display: flex;
+        overflow-x: auto;
+        gap: 15px;
+        padding: 15px 0;
+        scroll-snap-type: x mandatory;
+        min-height: 180px;
+    }
+    .card-container::-webkit-scrollbar {
+        height: 8px;
+    }
+    .card-container::-webkit-scrollbar-thumb {
+        background: var(--chiikawa-color);
+        border-radius: 4px;
+    }
+    .card {
+        flex: 0 0 160px;
+        background: #fff;
+        border: 1px solid #f3d1d8;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        scroll-snap-align: start;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 10px;
+        position: relative;
+    }
+    .card img {
+        width: 100%;
+        height: 130px;
+        object-fit: cover;
+        background-color: #f8f1f3;
+    }
+    .card-title {
+        font-size: 14px;
+        font-weight: bold;
+        margin: 8px 5px 0 5px;
+        text-align: center;
+        color: #555;
+        word-break: break-all;
+    }
+    .delete-btn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: rgba(0, 0, 0, 0.6);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 22px;
+        height: 22px;
+        font-size: 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     .coupon-card {
         background: var(--card-bg);
         border-radius: 12px;
@@ -231,8 +337,9 @@
     <h1>2026 10 名古屋旅遊</h1>
     <p>Lucy & Eric</p>
     
-    <!-- 頂部快速跳轉按鈕列 -->
     <div class="nav-bar">
+        <a href="#important" class="nav-btn important-nav">‼️ 重要事項 ‼️</a>
+        <a href="#chiikawa" class="nav-btn chiikawa-nav">🤍 吉伊卡哇專區</a>
         <a href="#day1" class="nav-btn">Day 1 (一)</a>
         <a href="#day2" class="nav-btn">Day 2 (二)</a>
         <a href="#day3" class="nav-btn">Day 3 (三)</a>
@@ -242,11 +349,38 @@
         <a href="#day7" class="nav-btn">Day 7 (日)</a>
         <a href="#day8" class="nav-btn">Day 8 (一)</a>
         <a href="#backup" class="nav-btn">備用行程</a>
+        <a href="#gifts" class="nav-btn">伴手禮區</a>
         <a href="#coupons" class="nav-btn">優惠券專區</a>
     </div>
 </header>
 
 <div class="container">
+
+    <div id="important" class="day-section" style="border: 2px solid var(--accent);">
+        <div class="day-title important-title">
+            <span>‼️ 重要事項 ‼️</span>
+        </div>
+        <ul class="item-list">
+            <li><span class="landmark-icon">✈️</span><div class="content-box"><span class="item-title">護照與有效期限確認（需有6個月以上效期）</span></div></li>
+            <li><span class="landmark-icon">🌐</span><div class="content-box"><span class="item-title">網卡 / eSIM 提前開通與設定</span></div></li>
+            <li><span class="landmark-icon">💴</span><div class="content-box"><span class="item-title">日幣現金與信用卡（海外刷卡手續費/開啟跨國功能）</span></div></li>
+            <li><span class="landmark-icon">🎫</span><div class="content-box"><span class="item-title">機票, 住宿, 門票與預約餐廳確認信件備份</span></div></li>
+            <li><span class="landmark-icon">🔌</span><div class="content-box"><span class="item-title">日本插頭為兩孔扁型，請備妥轉接頭與行動電源</span></div></li>
+        </ul>
+    </div>
+
+    <!-- 🤍 吉伊卡哇專區 -->
+    <div id="chiikawa" class="day-section" style="border: 2px solid var(--chiikawa-color);">
+        <div class="day-title chiikawa-title">
+            <span>🤍 吉伊卡哇專區</span>
+            <label class="upload-btn-label" for="upload-input">📱 上傳圖片</label>
+            <input type="file" id="upload-input" accept="image/*" onchange="handleImageUpload(event)">
+        </div>
+        <p style="font-size: 13px; color: #666; margin-bottom: 10px;">左右滑動可查看更多卡片，上傳照片時可自行輸入圖片名稱。</p>
+        
+        <div class="card-container" id="card-container">
+        </div>
+    </div>
 
     <!-- Day 1 (10/12) -->
     <div id="day1" class="day-section">
@@ -254,9 +388,9 @@
         <ul class="item-list">
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">名鐵百貨</span><ul class="sub-notes"><li>- 4F 扭蛋機</li></ul></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">Gate Tower</span><ul class="sub-notes"><li>- 7F SARIO</li></ul></div></li>
-            <li class="food-item"><span class="landmark-icon">🍽️</span><div class="content-box"><span class="item-title">晚餐：名古屋車站樓上</span></div></li>
+            <li class="food-item"><span class="landmark-icon">🍽</span><div class="content-box"><span class="item-title">晚餐：名古屋車站樓上</span></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">PARCO（如果要代購鯛魚燒）</span><ul class="sub-notes"><li>- 西館B1樓鯛魚燒吉伊卡哇</li></ul></div></li>
-            <li class="food-item"><span class="landmark-icon">🍽️️</span><div class="content-box"><span class="item-title">晚餐：PARCO 7F餐廳</span></div></li>
+            <li class="food-item"><span class="landmark-icon">🍽</span><div class="content-box"><span class="item-title">晚餐：PARCO 7F餐廳</span></div></li>
         </ul>
     </div>
 
@@ -264,8 +398,8 @@
     <div id="day2" class="day-section">
         <div class="day-title">Day 2 (二)：10/13</div>
         <ul class="item-list">
-            <li class="food-item"><span class="landmark-icon">🍽️</span><div class="content-box"><span class="item-title">Kachiteba かちてば</span><a href="https://maps.app.goo.gl/rRLT9kE7BnFoiaCE7?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- 手羽先</li></ul></div></li>
-            <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">Parco</span><a href="https://maps.app.goo.gl/BkWkeomPWyqhMi4v9?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- 西館B1樓鯛魚燒吉伊卡哇</li><li>- 西館8樓哥吉拉專賣店</li><li>- 西館8樓的吉伊卡哇餐廳 THE GUEST CAFE&DINER</li><li>- 東館B1樓 其他快閃店/魔法少女</li><li>- 東館2樓 寶可夢中心</li><li>- 東館3樓 KIDDY LAND</li><li>- 東館4樓 Animate/扭蛋機</li><li>- B1、3F、7F有連通</li><li>- 西館7F有餐廳</li></ul></div></li>
+            <li class="food-item"><span class="landmark-icon">🍽</span><div class="content-box"><span class="item-title">Kachiteba かちてば</span><a href="https://maps.app.goo.gl/rRLT9kE7BnFoiaCE7?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- 手羽先</li></ul></div></li>
+            <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">Parco</span><a href="https://maps.app.goo.gl/BkWkeomPWyqhMi4v9?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- 西館B1樓鯛魚燒吉伊卡哇</li><li>- 西館8樓哥吉拉專賣店</li><li>- 西館8樓的吉伊卡哇餐廳 THE GUEST CAFE&DINER</li><li>- 東館B1樓 其他快閃店/魔法少女</li><li>- 東館2樓 寶可夢中心（魯弟：寶可夢徽章*2、拍卡片包給他看）</li><li>- 東館3樓 KIDDY LAND</li><li>- 東館4樓 Animate/扭蛋機</li><li>- B1、3F、7F有連通</li><li>- 西館7F有餐廳</li></ul></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">Alpen NAGOYA</span><a href="https://maps.app.goo.gl/d14Gv5TTcWvMyF4k8?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- 運動用品店（2F可退稅）</li></ul></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">綠洲21</span><a href="https://maps.app.goo.gl/dv9VJr2DVWhjJhEt8?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">中部電力未來塔</span><a href="https://maps.app.goo.gl/RbFgkz3kkP1WWybd7?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
@@ -288,7 +422,7 @@
             <li class="food-item"><span class="landmark-icon">🍽️</span><div class="content-box"><span class="item-title">銀之餡鯛魚燒</span><a href="https://maps.app.goo.gl/45y16So6BsiX92Cf6?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- 推薦脆皮的布丁口味</li></ul></div></li>
             <li class="food-item"><span class="landmark-icon">🍽️</span><div class="content-box"><span class="item-title">御手洗糰子</span><a href="https://maps.app.goo.gl/hbwoggW9g27Gxn28A?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
             <li class="food-item"><span class="landmark-icon">🍽️</span><div class="content-box"><span class="item-title">Konparu Osu 炸蝦三明治</span><a href="https://maps.app.goo.gl/VGg1GowZCF8DvqKc9?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
-            <li class="food-item"><span class="landmark-icon">🍽️</span><div class="content-box"><span class="item-title">島正（關東煮）</span><a href="https://maps.app.goo.gl/KBYFqEJEjbpdTu9A9?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
+            <li class="food-item"><span class="landmark-icon">🍽</span><div class="content-box"><span class="item-title">島正（關東煮）</span><a href="https://maps.app.goo.gl/KBYFqEJEjbpdTu9A9?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">大須觀音</span><a href="https://maps.app.goo.gl/frACBVoMPiyVtyDu5?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- 幫我蓋御朱印</li></ul></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">大須觀音商店街</span><a href="https://maps.app.goo.gl/cm7XqVbLcrVapbgq8?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">#C-pla 扭蛋機</span><a href="https://maps.app.goo.gl/erszbtjBqpEJTNCDA?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- 2F有一番賞</li></ul></div></li>
@@ -319,7 +453,7 @@
         <ul class="item-list">
             <li><span class="landmark-icon">🚆</span><div class="content-box"><span class="item-title">JR 到高山 (2.5hr)</span></div></li>
             <li class="food-item"><span class="landmark-icon">🍽️</span><div class="content-box"><span class="item-title">宮川朝市</span><a href="https://maps.app.goo.gl/ikpxYRqmRsjxvhrx5?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- 小瀨德魚店 賣牛奶</li></ul></div></li>
-            <li class="food-item"><span class="landmark-icon">🍽️️</span><div class="content-box"><span class="item-title">高山老街美食</span><ul class="sub-notes"><li>- 日々是好日 <a href="https://maps.app.goo.gl/d1PvvUrKom7JPPUg9?g_st=ic" target="_blank" class="map-link">地圖</a></li><li>- 六拾番 rokujyu-ban <a href="https://maps.app.goo.gl/JGzAW5xyJaf8iG6Q7?g_st=ic" target="_blank" class="map-link">地圖</a></li><li>- 飛驒特牛壽司 <a href="https://maps.app.goo.gl/fTbXgxcKbFA6YhE79?g_st=ic" target="_blank" class="map-link">地圖</a></li><li>- 金乃こって牛 <a href="https://maps.app.goo.gl/CtuVvssPSuatWBaz9?g_st=ic" target="_blank" class="map-link">地圖</a></li><li>- 三町筋 <a href="https://maps.app.goo.gl/zCxmpgCLoHsnjiDf7?g_st=ic" target="_blank" class="map-link">地圖</a></li><li>- 高山布丁亭 <a href="https://maps.app.goo.gl/dScKfe62xUVXi3Gr8?g_st=ic" target="_blank" class="map-link">地圖</a></li></ul></div></li>
+            <li class="food-item"><span class="landmark-icon">🍽</span><div class="content-box"><span class="item-title">高山老街美食</span><ul class="sub-notes"><li>- 日々是好日 <a href="https://maps.app.goo.gl/d1PvvUrKom7JPPUg9?g_st=ic" target="_blank" class="map-link">地圖</a></li><li>- 六拾番 rokujyu-ban <a href="https://maps.app.goo.gl/JGzAW5xyJaf8iG6Q7?g_st=ic" target="_blank" class="map-link">地圖</a></li><li>- 飛驒特牛壽司 <a href="https://maps.app.goo.gl/fTbXgxcKbFA6YhE79?g_st=ic" target="_blank" class="map-link">地圖</a></li><li>- 金乃こって牛 <a href="https://maps.app.goo.gl/CtuVvssPSuatWBaz9?g_st=ic" target="_blank" class="map-link">地圖</a></li><li>- 三町筋 <a href="https://maps.app.goo.gl/zCxmpgCLoHsnjiDf7?g_st=ic" target="_blank" class="map-link">地圖</a></li><li>- 高山布丁亭 <a href="https://maps.app.goo.gl/dScKfe62xUVXi3Gr8?g_st=ic" target="_blank" class="map-link">地圖</a></li></ul></div></li>
             <li class="food-item"><span class="landmark-icon">🍽️</span><div class="content-box"><span class="item-title">晚餐（擇一）</span><ul class="sub-notes"><li>- 美登利 <a href="https://maps.app.goo.gl/1yHbpEg4LZDge8Z47?g_st=ic" target="_blank" class="map-link">地圖</a></li><li>- Konparu Sun Road <a href="https://maps.app.goo.gl/qTXaX83g3Nb5Ap4o9?g_st=ic" target="_blank" class="map-link">地圖</a></li><li>- 麵家獅子丸 <a href="https://maps.app.goo.gl/1PpBvL98kqEvBjL3A?g_st=ic" target="_blank" class="map-link">地圖</a></li><li>- 麵屋優光 <a href="https://maps.app.goo.gl/FuAdLbDSBVYfsSB29?g_st=ic" target="_blank" class="map-link">地圖</a></li></ul></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">GIGO</span><a href="https://maps.app.goo.gl/e9NU3La8a5HF6rdXA?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- 開到晚上11點</li></ul></div></li>
         </ul>
@@ -333,7 +467,7 @@
             <li><span class="landmark-icon">🚆</span><div class="content-box"><span class="item-title">名鐵巴士坐公車到Parco西館後開始沿路逛到榮站附近</span></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">Parco</span><a href="https://maps.app.goo.gl/BkWkeomPWyqhMi4v9?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- 西館B1樓鯛魚燒吉伊卡哇</li><li>- 西館8樓哥吉拉</li><li>- 西館7樓餐廳</li><li>- 東館B1樓 魔法少女</li><li>- 東館2樓 寶可夢</li><li>- 東館3樓 KIDDY LAND</li><li>- 東館4樓 Animate</li><li>- B1、3F、7F有連通</li></ul></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">ZEROGATE</span><ul class="sub-notes"><li>- 1F gashacoco 扭蛋機</li></ul></div></li>
-            <li class="food-item"><span class="landmark-icon">🍽️</span><div class="content-box"><span class="item-title">松阪屋（南館10F 中餐 矢場町豬排）</span></div></li>
+            <li class="food-item"><span class="landmark-icon">🍽️️</span><div class="content-box"><span class="item-title">松阪屋（南館10F 中餐 矢場町豬排）</span></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">松阪屋 本館 5F Sario</span></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">LACHIC：Beams</span></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">NOVA：3-6F LOFT</span></div></li>
@@ -367,11 +501,22 @@
         </ul>
     </div>
 
+    <!-- 🎀 伴手禮區 -->
+    <div id="gifts" class="day-section" style="border: 2px solid #e67e22;">
+        <div class="day-title gift-title">
+            <span>🎀 伴手禮區</span>
+        </div>
+        <ul class="item-list">
+            <li><span class="landmark-icon">🎁</span><div class="content-box"><span class="item-title">機場 T1 4F 仙貝之里</span></div></li>
+            <li><span class="landmark-icon">🎁</span><div class="content-box"><span class="item-title">Sugar Butter Sand Tree 抹茶 / 新品奶油派</span></div></li>
+            <li><span class="landmark-icon">🎁</span><div class="content-box"><span class="item-title">Komeda’s Coffee 客美多咖啡 小倉紅豆吐司酥餅</span></div></li>
+        </ul>
+    </div>
+
     <!-- 優惠券與現金券專區 -->
     <div id="coupons" class="coupon-card">
         <h3>🎁 優惠券與現金券專區</h3>
         
-        <!-- PARCO 500日圓現金券 -->
         <div class="promo-box">
             <div class="promo-title">📍 PARCO 500日圓現金券</div>
             <div class="notice-frame">
@@ -380,7 +525,6 @@
             </div>
         </div>
 
-        <!-- 大丸百貨 / 松坂屋 9.5折退稅優惠券 -->
         <div class="promo-box">
             <div class="promo-title">📍 大丸百貨 / 松坂屋 9.5折退稅優惠券</div>
             <div class="notice-frame">
@@ -389,18 +533,132 @@
             </div>
         </div>
 
-        <!-- Bic Camera -->
         <div class="coupon-item" style="margin-top: 15px;">
             <a href="https://www.chictrip.com.tw/service/Coupon/4c7dde1b-cc14-4fa2-8b65-ffe92ef69683" target="_blank" class="coupon-btn">👉 Bic Camera 優惠券連結</a>
         </div>
         
-        <!-- 唐吉訶德 -->
         <div class="coupon-item">
             <a href="https://www.donki.com/zh/campaign/chictrip" target="_blank" class="coupon-btn">👉 唐吉訶德 優惠券連結</a>
         </div>
     </div>
 
 </div>
+
+<script>
+    let chiikawaItems = [];
+    try {
+        const savedData = localStorage.getItem('chiikawa_items');
+        if (savedData) {
+            chiikawaItems = JSON.parse(savedData);
+        }
+    } catch (e) {
+        console.log('localStorage error:', e);
+    }
+
+    function renderCards() {
+        const container = document.getElementById('card-container');
+        if (!container) return;
+        
+        container.innerHTML = '';
+        
+        if (chiikawaItems.length === 0) {
+            container.innerHTML = '<p style="color: #aaa; font-size: 14px; margin: auto; text-align: center; padding: 20px;">目前還沒有上傳照片，點擊右上角「上傳圖片」新增吧！</p>';
+            return;
+        }
+
+        chiikawaItems.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            
+            card.innerHTML = `
+                <button class="delete-btn" onclick="deleteCard(${index})" title="刪除">×</button>
+                <img src="${item.url}" alt="${item.title}">
+                <div class="card-title">${item.title}</div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function deleteCard(index) {
+        if (confirm('確定要刪除這張圖片嗎？')) {
+            chiikawaItems.splice(index, 1);
+            try {
+                localStorage.setItem('chiikawa_items', JSON.stringify(chiikawaItems));
+            } catch (e) {
+                console.log(e);
+            }
+            renderCards();
+        }
+    }
+
+    function handleImageUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        // 讓使用者自訂圖片名稱
+        let customTitle = prompt('請輸入這張圖片的名稱：', '吉伊卡哇戰利品');
+        if (customTitle === null) {
+            event.target.value = '';
+            return; // 按取消則不上傳
+        }
+        if (customTitle.trim() === '') {
+            customTitle = '未命名圖片';
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                const MAX_WIDTH = 500;
+                const MAX_HEIGHT = 500;
+                let width = img.width;
+                let height = img.height;
+
+                if (width > height) {
+                    if (width > MAX_WIDTH) {
+                        height *= MAX_WIDTH / width;
+                        width = MAX_WIDTH;
+                    }
+                } else {
+                    if (height > MAX_HEIGHT) {
+                        width *= MAX_HEIGHT / height;
+                        height = MAX_HEIGHT;
+                    }
+                }
+
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+
+                const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.6);
+
+                chiikawaItems.push({
+                    title: customTitle.trim(),
+                    url: compressedDataUrl
+                });
+
+                try {
+                    localStorage.setItem('chiikawa_items', JSON.stringify(chiikawaItems));
+                } catch (err) {
+                    alert('儲存空間已滿，無法再儲存更多圖片！');
+                    chiikawaItems.pop();
+                    return;
+                }
+
+                renderCards();
+                event.target.value = '';
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    window.onload = function() {
+        renderCards();
+    };
+</script>
 
 </body>
 </html>
