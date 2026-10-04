@@ -206,7 +206,7 @@
     .upload-btn-label:active {
         background-color: #ff6f91;
     }
-    #upload-input {
+    #upload-input, #coupon-file-input {
         display: none;
     }
     .card-container {
@@ -243,6 +243,7 @@
         height: 130px;
         object-fit: cover;
         background-color: #f8f1f3;
+        cursor: pointer;
     }
     .card-title {
         font-size: 14px;
@@ -267,6 +268,65 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        z-index: 5;
+    }
+
+    /* 圖片放大檢視燈箱樣式 */
+    #image-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 20px;
+    }
+    #image-modal img {
+        max-width: 100%;
+        max-height: 80vh;
+        object-fit: contain;
+        border-radius: 8px;
+        transition: transform 0.2s ease;
+        transform-origin: center;
+        cursor: zoom-in;
+    }
+    .modal-close-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: #ffffff;
+        color: #333;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        font-size: 22px;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        z-index: 1010;
+    }
+    .modal-caption {
+        color: white;
+        margin-top: 15px;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+    }
+    .uploading-mask {
+        display: none;
+        font-size: 13px;
+        color: #d87093;
+        font-weight: bold;
+        margin-left: 10px;
     }
 
     .coupon-card {
@@ -278,15 +338,33 @@
         border: 1px solid var(--border);
         scroll-margin-top: 130px;
     }
-    .coupon-card h3 {
+    .coupon-card .day-title {
         font-size: 18px;
         color: var(--accent);
         margin-bottom: 15px;
         border-bottom: 2px solid var(--accent);
         padding-bottom: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .add-coupon-btn {
+        background: var(--accent);
+        color: white;
+        border: none;
+        padding: 6px 14px;
+        border-radius: 15px;
+        font-size: 13px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+    .add-coupon-btn:active {
+        background: #c0392b;
     }
     .coupon-item {
         margin-bottom: 15px;
+        position: relative;
     }
     .coupon-btn {
         display: block;
@@ -306,6 +384,7 @@
         padding: 15px;
         text-align: center;
         margin-bottom: 15px;
+        position: relative;
     }
     .promo-title {
         font-size: 16px;
@@ -313,21 +392,101 @@
         color: var(--accent);
         margin-bottom: 10px;
     }
-    .notice-frame {
-        background: #ffffff;
-        border: 2px dashed #4a90e2;
-        border-radius: 10px;
-        padding: 20px 15px;
-        margin-top: 8px;
-        color: #333;
-        font-weight: 600;
-        font-size: 15px;
-    }
-    .notice-sub {
-        font-size: 13px;
-        color: #666;
-        font-weight: normal;
+    .custom-coupon-img {
+        width: 100%;
+        max-height: 250px;
+        object-fit: contain;
+        background: #f8f1f3;
+        border-radius: 8px;
+        cursor: pointer;
         margin-top: 5px;
+    }
+    .delete-coupon-btn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        background: rgba(0, 0, 0, 0.6);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        font-size: 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 5;
+    }
+    .uploading-coupon-mask {
+        display: none;
+        font-size: 12px;
+        color: var(--accent);
+        font-weight: bold;
+        margin-left: 8px;
+    }
+
+    /* 自訂選擇視窗 Modal 樣式 */
+    #action-sheet-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        justify-content: center;
+        align-items: flex-end;
+        padding: 15px;
+    }
+    .action-sheet-content {
+        background: #ffffff;
+        width: 100%;
+        max-width: 500px;
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        animation: slideUp 0.3s ease;
+        margin-bottom: 15px;
+    }
+    @keyframes slideUp {
+        from { transform: translateY(100px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+    .action-sheet-title {
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        color: var(--text);
+        margin-bottom: 15px;
+    }
+    .action-sheet-btn {
+        display: block;
+        width: 100%;
+        padding: 14px;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        border: none;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+    }
+    .action-sheet-btn.url-type {
+        background: #eef5fc;
+        color: var(--primary-dark);
+        border: 1px solid var(--primary);
+    }
+    .action-sheet-btn.img-type {
+        background: #fdf3f2;
+        color: var(--accent);
+        border: 1px solid var(--accent);
+    }
+    .action-sheet-btn.cancel-type {
+        background: #f4f6f9;
+        color: var(--text-muted);
+        margin-bottom: 0;
     }
 </style>
 </head>
@@ -361,7 +520,7 @@
             <span>‼️ 重要事項 ‼️</span>
         </div>
         <ul class="item-list">
-            <li><span class="landmark-icon">✈️</span><div class="content-box"><span class="item-title">護照與有效期限確認（需有6個月以上效期）</span></div></li>
+            <li><span class="landmark-icon">✈</span><div class="content-box"><span class="item-title">護照與有效期限確認（需有6個月以上效期）</span></div></li>
             <li><span class="landmark-icon">🌐</span><div class="content-box"><span class="item-title">網卡 / eSIM 提前開通與設定</span></div></li>
             <li><span class="landmark-icon">💴</span><div class="content-box"><span class="item-title">日幣現金與信用卡（海外刷卡手續費/開啟跨國功能）</span></div></li>
             <li><span class="landmark-icon">🎫</span><div class="content-box"><span class="item-title">機票, 住宿, 門票與預約餐廳確認信件備份</span></div></li>
@@ -372,11 +531,14 @@
     <!-- 🤍 吉伊卡哇專區 -->
     <div id="chiikawa" class="day-section" style="border: 2px solid var(--chiikawa-color);">
         <div class="day-title chiikawa-title">
-            <span>🤍 吉伊卡哇專區</span>
+            <span>
+                🤍 吉伊卡哇專區 
+                <span id="uploading-status" class="uploading-mask">☁️ 上傳雲端中...</span>
+            </span>
             <label class="upload-btn-label" for="upload-input">📱 上傳圖片</label>
             <input type="file" id="upload-input" accept="image/*" onchange="handleImageUpload(event)">
         </div>
-        <p style="font-size: 13px; color: #666; margin-bottom: 10px;">左右滑動可查看更多卡片，上傳照片時可自行輸入圖片名稱。</p>
+        <p style="font-size: 13px; color: #666; margin-bottom: 10px;">左右滑動可查看更多卡片，點擊圖片可放大檢視原圖。</p>
         
         <div class="card-container" id="card-container">
         </div>
@@ -467,7 +629,7 @@
             <li><span class="landmark-icon">🚆</span><div class="content-box"><span class="item-title">名鐵巴士坐公車到Parco西館後開始沿路逛到榮站附近</span></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">Parco</span><a href="https://maps.app.goo.gl/BkWkeomPWyqhMi4v9?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- 西館B1樓鯛魚燒吉伊卡哇</li><li>- 西館8樓哥吉拉</li><li>- 西館7樓餐廳</li><li>- 東館B1樓 魔法少女</li><li>- 東館2樓 寶可夢</li><li>- 東館3樓 KIDDY LAND</li><li>- 東館4樓 Animate</li><li>- B1、3F、7F有連通</li></ul></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">ZEROGATE</span><ul class="sub-notes"><li>- 1F gashacoco 扭蛋機</li></ul></div></li>
-            <li class="food-item"><span class="landmark-icon">🍽️️</span><div class="content-box"><span class="item-title">松阪屋（南館10F 中餐 矢場町豬排）</span></div></li>
+            <li class="food-item"><span class="landmark-icon">🍽</span><div class="content-box"><span class="item-title">松阪屋（南館10F 中餐 矢場町豬排）</span></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">松阪屋 本館 5F Sario</span></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">LACHIC：Beams</span></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">NOVA：3-6F LOFT</span></div></li>
@@ -515,44 +677,65 @@
 
     <!-- 優惠券與現金券專區 -->
     <div id="coupons" class="coupon-card">
-        <h3>🎁 優惠券與現金券專區</h3>
-        
-        <div class="promo-box">
-            <div class="promo-title">📍 PARCO 500日圓現金券</div>
-            <div class="notice-frame">
-                📱 請出示手機上的優惠券圖片
-                <div class="notice-sub">請至 West Bldg. 1F 兌換</div>
-            </div>
+        <div class="day-title">
+            <span>
+                🎁 優惠券與現金券專區 
+                <span id="coupon-uploading-status" class="uploading-coupon-mask">☁️ 雲端上傳中...</span>
+            </span>
+            <button class="add-coupon-btn" onclick="openActionSheet()">➕ 新增優惠券</button>
+            <input type="file" id="coupon-file-input" accept="image/*" onchange="handleCouponImageUpload(event)">
         </div>
 
-        <div class="promo-box">
-            <div class="promo-title">📍 大丸百貨 / 松坂屋 9.5折退稅優惠券</div>
-            <div class="notice-frame">
-                📱 請出示手機上的優惠券圖片
-                <div class="notice-sub">結帳與退稅時請出示條碼供店員掃描</div>
-            </div>
-        </div>
-
-        <div class="coupon-item" style="margin-top: 15px;">
+        <div class="coupon-item" style="margin-top: 5px;">
             <a href="https://www.chictrip.com.tw/service/Coupon/4c7dde1b-cc14-4fa2-8b65-ffe92ef69683" target="_blank" class="coupon-btn">👉 Bic Camera 優惠券連結</a>
         </div>
         
         <div class="coupon-item">
             <a href="https://www.donki.com/zh/campaign/chictrip" target="_blank" class="coupon-btn">👉 唐吉訶德 優惠券連結</a>
         </div>
+
+        <!-- 使用者自訂新增的優惠券將會顯示在這裡 -->
+        <div id="custom-coupon-container"></div>
     </div>
 
 </div>
 
+<!-- 新增優惠券選擇視窗 (Action Sheet) -->
+<div id="action-sheet-modal" onclick="closeActionSheet()">
+    <div class="action-sheet-content" onclick="event.stopPropagation()">
+        <div class="action-sheet-title">選擇新增優惠券方式</div>
+        <button class="action-sheet-btn url-type" onclick="selectAddUrl()">🔗 貼上網址 (URL)</button>
+        <button class="action-sheet-btn img-type" onclick="selectAddImage()">📱 上傳圖片</button>
+        <button class="action-sheet-btn cancel-type" onclick="closeActionSheet()">取消</button>
+    </div>
+</div>
+
+<!-- 圖片放大檢視燈箱 Modal -->
+<div id="image-modal" onclick="closeModal()">
+    <button class="modal-close-btn" onclick="closeModal()">×</button>
+    <img id="modal-img" src="" alt="放大圖片" onclick="event.stopPropagation()">
+    <div id="modal-caption" class="modal-caption"></div>
+</div>
+
 <script>
+    const IMGBB_API_KEY = '905d37c7f2829d728da32159a4d0c6b9'; 
+
     let chiikawaItems = [];
-    try {
-        const savedData = localStorage.getItem('chiikawa_items');
-        if (savedData) {
-            chiikawaItems = JSON.parse(savedData);
+    let customCoupons = [];
+
+    function loadLocalItems() {
+        try {
+            const savedData = localStorage.getItem('chiikawa_cloud_items');
+            if (savedData) {
+                chiikawaItems = JSON.parse(savedData);
+            }
+            const savedCoupons = localStorage.getItem('custom_coupons_items');
+            if (savedCoupons) {
+                customCoupons = JSON.parse(savedCoupons);
+            }
+        } catch (e) {
+            console.log('localStorage error:', e);
         }
-    } catch (e) {
-        console.log('localStorage error:', e);
     }
 
     function renderCards() {
@@ -571,19 +754,49 @@
             card.className = 'card';
             
             card.innerHTML = `
-                <button class="delete-btn" onclick="deleteCard(${index})" title="刪除">×</button>
-                <img src="${item.url}" alt="${item.title}">
+                <button class="delete-btn" onclick="deleteCard(event, ${index})" title="刪除">×</button>
+                <img src="${item.url}" alt="${item.title}" onclick="openModal('${item.url}', '${item.title}')">
                 <div class="card-title">${item.title}</div>
             `;
             container.appendChild(card);
         });
     }
 
-    function deleteCard(index) {
+    function renderCustomCoupons() {
+        const container = document.getElementById('custom-coupon-container');
+        if (!container) return;
+
+        container.innerHTML = '';
+
+        customCoupons.forEach((coupon, index) => {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'coupon-item';
+
+            if (coupon.type === 'url') {
+                itemDiv.innerHTML = `
+                    <button class="delete-coupon-btn" onclick="deleteCustomCoupon(${index})" title="刪除">×</button>
+                    <a href="${coupon.url}" target="_blank" class="coupon-btn">👉 ${coupon.title}</a>
+                `;
+            } else if (coupon.type === 'image') {
+                itemDiv.innerHTML = `
+                    <div class="promo-box" style="margin-bottom: 0;">
+                        <button class="delete-coupon-btn" onclick="deleteCustomCoupon(${index})" title="刪除">×</button>
+                        <div class="promo-title">${coupon.title}</div>
+                        <img src="${coupon.url}" class="custom-coupon-img" alt="${coupon.title}" onclick="openModal('${coupon.url}', '${coupon.title}')">
+                        <div style="font-size: 12px; color: #666; margin-top: 5px;">點擊圖片可放大檢視</div>
+                    </div>
+                `;
+            }
+            container.appendChild(itemDiv);
+        });
+    }
+
+    function deleteCard(event, index) {
+        event.stopPropagation();
         if (confirm('確定要刪除這張圖片嗎？')) {
             chiikawaItems.splice(index, 1);
             try {
-                localStorage.setItem('chiikawa_items', JSON.stringify(chiikawaItems));
+                localStorage.setItem('chiikawa_cloud_items', JSON.stringify(chiikawaItems));
             } catch (e) {
                 console.log(e);
             }
@@ -591,26 +804,70 @@
         }
     }
 
-    function handleImageUpload(event) {
+    function deleteCustomCoupon(index) {
+        if (confirm('確定要刪除這個優惠券嗎？')) {
+            customCoupons.splice(index, 1);
+            try {
+                localStorage.setItem('custom_coupons_items', JSON.stringify(customCoupons));
+            } catch (e) {
+                console.log(e);
+            }
+            renderCustomCoupons();
+        }
+    }
+
+    function openActionSheet() {
+        document.getElementById('action-sheet-modal').style.display = 'flex';
+    }
+
+    function closeActionSheet() {
+        document.getElementById('action-sheet-modal').style.display = 'none';
+    }
+
+    function selectAddUrl() {
+        closeActionSheet();
+        const url = prompt('請貼上網址 (URL)：', '');
+        if (url && url.trim() !== '') {
+            let derivedTitle = url.trim();
+            try {
+                const parsedObj = new URL(url.trim());
+                derivedTitle = parsedObj.hostname + parsedObj.pathname;
+            } catch(err) {}
+
+            customCoupons.push({
+                type: 'url',
+                title: derivedTitle,
+                url: url.trim()
+            });
+            saveAndRenderCoupons();
+        }
+    }
+
+    function selectAddImage() {
+        closeActionSheet();
+        document.getElementById('coupon-file-input').click();
+    }
+
+    function handleCouponImageUpload(event) {
         const file = event.target.files[0];
         if (!file) return;
 
-        // 讓使用者自訂圖片名稱
-        let customTitle = prompt('請輸入這張圖片的名稱：', '吉伊卡哇戰利品');
-        if (customTitle === null) {
-            event.target.value = '';
-            return; // 按取消則不上傳
+        let fileName = file.name;
+        let lastDotIndex = fileName.lastIndexOf('.');
+        if (lastDotIndex !== -1) {
+            fileName = fileName.substring(0, lastDotIndex);
         }
-        if (customTitle.trim() === '') {
-            customTitle = '未命名圖片';
-        }
+        const derivedTitle = fileName.trim() !== '' ? fileName : '優惠券圖片';
+
+        const statusSpan = document.getElementById('coupon-uploading-status');
+        statusSpan.style.display = 'inline';
 
         const reader = new FileReader();
         reader.onload = function(e) {
             const img = new Image();
             img.onload = function() {
-                const MAX_WIDTH = 500;
-                const MAX_HEIGHT = 500;
+                const MAX_WIDTH = 1000;
+                const MAX_HEIGHT = 1000;
                 let width = img.width;
                 let height = img.height;
 
@@ -632,23 +889,149 @@
                 const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0, width, height);
 
-                const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.6);
+                const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.8);
+                const base64Data = compressedDataUrl.split(',')[1];
 
-                chiikawaItems.push({
-                    title: customTitle.trim(),
-                    url: compressedDataUrl
+                const formData = new FormData();
+                formData.append('image', base64Data);
+
+                fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    statusSpan.style.display = 'none';
+                    if (data.success) {
+                        customCoupons.push({
+                            type: 'image',
+                            title: derivedTitle,
+                            url: data.data.url
+                        });
+                        saveAndRenderCoupons();
+                    } else {
+                        alert('上傳雲端失敗，請檢查 API Key 是否正確！');
+                    }
+                    event.target.value = '';
+                })
+                .catch(error => {
+                    statusSpan.style.display = 'none';
+                    console.error('Error:', error);
+                    alert('網路連線異常，上傳失敗。');
+                    event.target.value = '';
                 });
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
 
-                try {
-                    localStorage.setItem('chiikawa_items', JSON.stringify(chiikawaItems));
-                } catch (err) {
-                    alert('儲存空間已滿，無法再儲存更多圖片！');
-                    chiikawaItems.pop();
-                    return;
+    function saveAndRenderCoupons() {
+        try {
+            localStorage.setItem('custom_coupons_items', JSON.stringify(customCoupons));
+        } catch (e) {
+            console.log(e);
+        }
+        renderCustomCoupons();
+    }
+
+    function openModal(url, title) {
+        const modal = document.getElementById('image-modal');
+        const modalImg = document.getElementById('modal-img');
+        const modalCaption = document.getElementById('modal-caption');
+        
+        modalImg.src = url;
+        modalCaption.textContent = title;
+        modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('image-modal');
+        modal.style.display = 'none';
+    }
+
+    function handleImageUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        let customTitle = prompt('請輸入這張圖片的名稱：', '吉伊卡哇戰利品');
+        if (customTitle === null) {
+            event.target.value = '';
+            return; 
+        }
+        if (customTitle.trim() === '') {
+            customTitle = '未命名圖片';
+        }
+
+        const statusSpan = document.getElementById('uploading-status');
+        statusSpan.style.display = 'inline';
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                const MAX_WIDTH = 1000;
+                const MAX_HEIGHT = 1000;
+                let width = img.width;
+                let height = img.height;
+
+                if (width > height) {
+                    if (width > MAX_WIDTH) {
+                        height *= MAX_WIDTH / width;
+                        width = MAX_WIDTH;
+                    }
+                } else {
+                    if (height > MAX_HEIGHT) {
+                        width *= MAX_HEIGHT / height;
+                        height = MAX_HEIGHT;
+                    }
                 }
 
-                renderCards();
-                event.target.value = '';
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+
+                const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.8);
+                const base64Data = compressedDataUrl.split(',')[1];
+
+                const formData = new FormData();
+                formData.append('image', base64Data);
+
+                fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    statusSpan.style.display = 'none';
+                    if (data.success) {
+                        const imageUrl = data.data.url;
+                        
+                        chiikawaItems.push({
+                            title: customTitle.trim(),
+                            url: imageUrl
+                        });
+
+                        try {
+                            localStorage.setItem('chiikawa_cloud_items', JSON.stringify(chiikawaItems));
+                        } catch (err) {
+                            console.log(err);
+                        }
+
+                        renderCards();
+                    } else {
+                        alert('上傳圖片失敗！');
+                    }
+                    event.target.value = '';
+                })
+                .catch(error => {
+                    statusSpan.style.display = 'none';
+                    console.error('Error:', error);
+                    alert('網路連線異常，上傳失敗。');
+                    event.target.value = '';
+                });
             };
             img.src = e.target.result;
         };
@@ -656,7 +1039,9 @@
     }
 
     window.onload = function() {
+        loadLocalItems();
         renderCards();
+        renderCustomCoupons();
     };
 </script>
 
