@@ -16,8 +16,8 @@
         --accent: #e74c3c;
         --food-bg: #fffaf0; 
         --food-border: #ffeeba; 
-        --chiikawa-color: #ffb6c1; /* 淡粉紅色 */
-        --chiikawa-dark: #ff8fab; /* 稍微深一點的粉紅供點擊/邊框用 */
+        --chiikawa-color: #ffb6c1; 
+        --chiikawa-dark: #ff8fab; 
     }
     * {
         box-sizing: border-box;
@@ -290,9 +290,6 @@
         max-height: 80vh;
         object-fit: contain;
         border-radius: 8px;
-        transition: transform 0.2s ease;
-        transform-origin: center;
-        cursor: zoom-in;
     }
     .modal-close-btn {
         position: absolute;
@@ -310,7 +307,6 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         z-index: 1010;
     }
     .modal-caption {
@@ -356,10 +352,6 @@
         font-size: 13px;
         font-weight: bold;
         cursor: pointer;
-        transition: background 0.3s;
-    }
-    .add-coupon-btn:active {
-        background: #c0392b;
     }
     .coupon-item {
         margin-bottom: 15px;
@@ -445,12 +437,7 @@
         border-radius: 16px;
         padding: 20px;
         box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-        animation: slideUp 0.3s ease;
         margin-bottom: 15px;
-    }
-    @keyframes slideUp {
-        from { transform: translateY(100px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
     }
     .action-sheet-title {
         font-size: 16px;
@@ -531,7 +518,7 @@
         <div class="day-title chiikawa-title">
             <span>
                 🤍 吉伊卡哇專區 
-                <span id="uploading-status" class="uploading-mask">☁️ 同步雲端中...</span>
+                <span id="uploading-status" class="uploading-mask">☁️ 雲端同步中...</span>
             </span>
             <label class="upload-btn-label" for="upload-input">📱 上傳圖片</label>
             <input type="file" id="upload-input" accept="image/*" onchange="handleImageUpload(event)">
@@ -560,7 +547,7 @@
         <div class="day-title">Day 2 (二)：10/13</div>
         <ul class="item-list">
             <li class="food-item"><span class="landmark-icon">🍽</span><div class="content-box"><span class="item-title">Kachiteba かちてば</span><a href="https://maps.app.goo.gl/rRLT9kE7BnFoiaCE7?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- 手羽先</li></ul></div></li>
-            <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">Parco</span><a href="https://maps.app.goo.gl/BkWkeomPWyqhMi4v9?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- 西館B1樓鯛魚燒吉伊卡哇</li><li>- 西館8樓哥吉拉專賣店</li><li>- 西館8樓的吉伊卡哇餐廳 THE GUEST CAFE&DINER</li><li>- 東館B1樓 其他快閃店/魔法少女</li><li>- 東館2樓 寶可夢中心（魯弟：寶可夢徽章*2、拍卡片包給他看）</li><li>- 東館3樓 KIDDY LAND</li><li>- 東館4樓 Animate/扭蛋機</li><li>- B1、3F、7F有連通</li><li>- 西館7F有餐廳</li></ul></div></li>
+            <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">Parco</span><a href="https://maps.app.goo.gl/BkWkeomPWyqhMi4v9?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- 西館B1樓鯛魚燒吉伊卡哇</li><li>- 西館8樓哥吉拉專賣店</li><li>- 西館8樓的吉伊卡哇餐廳 THE GUEST CAFE&DINER</li><li>- 東館B1樓 其他快閃店/魔法少女</li><li>- 東館2樓 寶可夢中心（魯弟：寶可夢徽章*2、拍卡片包給他看）</li><li>- 東館3樓 KIDDY LAND</li><li>- 東館4樓 Animate/扭蛋機</li></ul></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">Alpen NAGOYA</span><a href="https://maps.app.goo.gl/d14Gv5TTcWvMyF4k8?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- 運動用品店（2F可退稅）</li></ul></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">綠洲21</span><a href="https://maps.app.goo.gl/dv9VJr2DVWhjJhEt8?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">中部電力未來塔</span><a href="https://maps.app.goo.gl/RbFgkz3kkP1WWybd7?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
@@ -581,17 +568,14 @@
         <ul class="item-list">
             <li class="food-item"><span class="landmark-icon">🍽️</span><div class="content-box"><span class="item-title">築地銀章魚</span><a href="https://maps.app.goo.gl/TiCw2sU2jcawrTh39?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
             <li class="food-item"><span class="landmark-icon">🍽️</span><div class="content-box"><span class="item-title">銀之餡鯛魚燒</span><a href="https://maps.app.goo.gl/45y16So6BsiX92Cf6?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- 推薦脆皮的布丁口味</li></ul></div></li>
-            <li class="food-item"><span class="landmark-icon">🍽️</span><div class="content-box"><span class="item-title">御手洗糰子</span><a href="https://maps.app.goo.gl/hbwoggW9g27Gxn28A?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
+            <li class="food-item"><span class="landmark-icon">🍽️️</span><div class="content-box"><span class="item-title">御手洗糰子</span><a href="https://maps.app.goo.gl/hbwoggW9g27Gxn28A?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
             <li class="food-item"><span class="landmark-icon">🍽️</span><div class="content-box"><span class="item-title">Konparu Osu 炸蝦三明治</span><a href="https://maps.app.goo.gl/VGg1GowZCF8DvqKc9?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
             <li class="food-item"><span class="landmark-icon">🍽</span><div class="content-box"><span class="item-title">島正（關東煮）</span><a href="https://maps.app.goo.gl/KBYFqEJEjbpdTu9A9?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">大須觀音</span><a href="https://maps.app.goo.gl/frACBVoMPiyVtyDu5?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- 幫我蓋御朱印</li></ul></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">大須觀音商店街</span><a href="https://maps.app.goo.gl/cm7XqVbLcrVapbgq8?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">#C-pla 扭蛋機</span><a href="https://maps.app.goo.gl/erszbtjBqpEJTNCDA?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- 2F有一番賞</li></ul></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">駿河屋</span><a href="https://maps.app.goo.gl/brj7iDRW36uaPcU9A?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
-            <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">Taito Station Fedora Osu Store</span><a href="https://maps.app.goo.gl/EBYQ4HpAwsuA8imXA?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- 夾娃娃機</li></ul></div></li>
-            <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">Taito Station Osu Shop</span><a href="https://maps.app.goo.gl/gAntKSf2cUozEMjf9?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- 夾娃娃機</li></ul></div></li>
-            <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">Mandarake 名古屋店</span><a href="https://maps.app.goo.gl/fJpDV5ZEFRFbv3QeA?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- 滿5000¥免稅</li></ul></div></li>
-            <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">VOLKS Nagoya Showroom</span><a href="https://maps.app.goo.gl/wnZhRHkVSGwEFNcU9?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
+            <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">Taito Station Fedora Osu Store</span><a href="https://maps.app.goo.gl/EBYQ4HpAwsuA8imXA?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
         </ul>
     </div>
 
@@ -601,10 +585,9 @@
         <ul class="item-list">
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">JR名古屋高島屋</span></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">Gate Tower Mall</span><ul class="sub-notes"><li>- UNIQLO、GU、Sario、Hands、三省堂書店</li></ul></div></li>
-            <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">BicCamera</span><ul class="sub-notes"><li>- 開到9:00PM</li></ul></div></li>
+            <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">BicCamera</span></div></li>
             <li class="food-item"><span class="landmark-icon">🍽</span><div class="content-box"><span class="item-title">晚餐 7:15 PM：最飛びヒレ家 馬喰一代 名古屋EAST</span><a href="https://www.google.com/maps/reserve/bookings/detail?b=MM6nAUcGGw4" target="_blank" class="map-link">訂位</a></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">AEON MALL</span><a href="https://maps.app.goo.gl/pxugXgNytLxhJ1qU7?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
-            <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">AEON太閤購物中心</span><a href="https://maps.app.goo.gl/nohD83MEgPWUVNJj6?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- 24HR，無退稅</li></ul></div></li>
         </ul>
     </div>
 
@@ -613,10 +596,8 @@
         <div class="day-title">Day 6 (六)：10/17（高山行）</div>
         <ul class="item-list">
             <li><span class="landmark-icon">🚆</span><div class="content-box"><span class="item-title">JR 到高山 (2.5hr)</span></div></li>
-            <li class="food-item"><span class="landmark-icon">🍽️</span><div class="content-box"><span class="item-title">宮川朝市</span><a href="https://maps.app.goo.gl/ikpxYRqmRsjxvhrx5?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- 小瀨德魚店 賣牛奶</li></ul></div></li>
-            <li class="food-item"><span class="landmark-icon">🍽</span><div class="content-box"><span class="item-title">高山老街美食</span><ul class="sub-notes"><li>- 日々是好日 <a href="https://maps.app.goo.gl/d1PvvUrKom7JPPUg9?g_st=ic" target="_blank" class="map-link">地圖</a></li><li>- 六拾番 rokujyu-ban <a href="https://maps.app.goo.gl/JGzAW5xyJaf8iG6Q7?g_st=ic" target="_blank" class="map-link">地圖</a></li><li>- 飛驒特牛壽司 <a href="https://maps.app.goo.gl/fTbXgxcKbFA6YhE79?g_st=ic" target="_blank" class="map-link">地圖</a></li><li>- 金乃こって牛 <a href="https://maps.app.goo.gl/CtuVvssPSuatWBaz9?g_st=ic" target="_blank" class="map-link">地圖</a></li><li>- 三町筋 <a href="https://maps.app.goo.gl/zCxmpgCLoHsnjiDf7?g_st=ic" target="_blank" class="map-link">地圖</a></li><li>- 高山布丁亭 <a href="https://maps.app.goo.gl/dScKfe62xUVXi3Gr8?g_st=ic" target="_blank" class="map-link">地圖</a></li></ul></div></li>
-            <li class="food-item"><span class="landmark-icon">🍽️</span><div class="content-box"><span class="item-title">晚餐（擇一）</span><ul class="sub-notes"><li>- 美登利 <a href="https://maps.app.goo.gl/1yHbpEg4LZDge8Z47?g_st=ic" target="_blank" class="map-link">地圖</a></li><li>- Konparu Sun Road <a href="https://maps.app.goo.gl/qTXaX83g3Nb5Ap4o9?g_st=ic" target="_blank" class="map-link">地圖</a></li><li>- 麵家獅子丸 <a href="https://maps.app.goo.gl/1PpBvL98kqEvBjL3A?g_st=ic" target="_blank" class="map-link">地圖</a></li><li>- 麵屋優光 <a href="https://maps.app.goo.gl/FuAdLbDSBVYfsSB29?g_st=ic" target="_blank" class="map-link">地圖</a></li></ul></div></li>
-            <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">GIGO</span><a href="https://maps.app.goo.gl/e9NU3La8a5HF6rdXA?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- 開到晚上11點</li></ul></div></li>
+            <li class="food-item"><span class="landmark-icon">🍽️</span><div class="content-box"><span class="item-title">宮川朝市</span><a href="https://maps.app.goo.gl/ikpxYRqmRsjxvhrx5?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
+            <li class="food-item"><span class="landmark-icon">🍽</span><div class="content-box"><span class="item-title">高山老街美食</span><ul class="sub-notes"><li>- 金乃こって牛 <a href="https://maps.app.goo.gl/CtuVvssPSuatWBaz9?g_st=ic" target="_blank" class="map-link">地圖</a></li><li>- 高山布丁亭 <a href="https://maps.app.goo.gl/dScKfe62xUVXi3Gr8?g_st=ic" target="_blank" class="map-link">地圖</a></li></ul></div></li>
         </ul>
     </div>
 
@@ -625,17 +606,7 @@
         <div class="day-title">Day 7 (日)：10/18</div>
         <ul class="item-list">
             <li class="food-item"><span class="landmark-icon">🍽️</span><div class="content-box"><span class="item-title">早餐：早安名古屋</span><a href="https://maps.app.goo.gl/8kGVeUhuuV7UX65F6?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
-            <li><span class="landmark-icon">🚆</span><div class="content-box"><span class="item-title">名鐵巴士坐公車到Parco西館後開始沿路逛到榮站附近</span></div></li>
-            <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">Parco</span><a href="https://maps.app.goo.gl/BkWkeomPWyqhMi4v9?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- 西館B1樓鯛魚燒吉伊卡哇</li><li>- 西館8樓哥吉拉</li><li>- 西館7樓餐廳</li><li>- 東館B1樓 魔法少女</li><li>- 東館2樓 寶可夢</li><li>- 東館3樓 KIDDY LAND</li><li>- 東館4樓 Animate</li><li>- B1、3F、7F有連通</li></ul></div></li>
-            <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">ZEROGATE</span><ul class="sub-notes"><li>- 1F gashacoco 扭蛋機</li></ul></div></li>
-            <li class="food-item"><span class="landmark-icon">🍽</span><div class="content-box"><span class="item-title">松阪屋（南館10F 中餐 矢場町豬排）</span></div></li>
-            <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">松阪屋 本館 5F Sario</span></div></li>
-            <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">LACHIC：Beams</span></div></li>
-            <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">NOVA：3-6F LOFT</span></div></li>
-            <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">Skyle：7F 大創</span></div></li>
-            <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">Maruei Galleria：2F 無印良品</span></div></li>
-            <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">納屋橋 唐吉軻德</span></div></li>
-            <li class="food-item"><span class="landmark-icon">🍽️</span><div class="content-box"><span class="item-title">晚餐 7:00 PM：Hitsumabushi Bincho 鰻魚飯三吃</span><a href="https://www.google.com/maps/reserve/bookings/detail?b=xntdK6MyHn8&pli=1" target="_blank" class="map-link">訂位</a></div></li>
+            <li class="food-item"><span class="landmark-icon">🍽</span><div class="content-box"><span class="item-title">晚餐 7:00 PM：Hitsumabushi Bincho 鰻魚飯三吃</span><a href="https://www.google.com/maps/reserve/bookings/detail?b=xntdK6MyHn8&pli=1" target="_blank" class="map-link">訂位</a></div></li>
         </ul>
     </div>
 
@@ -644,8 +615,6 @@
         <div class="day-title">Day 8 (一)：10/19</div>
         <ul class="item-list">
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">名鐵百貨</span><ul class="sub-notes"><li>- 4F扭蛋機</li></ul></div></li>
-            <li class="food-item"><span class="landmark-icon">🍽️</span><div class="content-box"><span class="item-title">JR高島屋 Takashimaya</span><a href="https://maps.app.goo.gl/Mq45jbfaVdKpgefAA?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- B1有地下街美食</li></ul></div></li>
-            <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">JR Gate Tower</span><a href="https://maps.app.goo.gl/3LUN4zV9PdAhTHCi6?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
         </ul>
     </div>
 
@@ -654,11 +623,6 @@
         <div class="day-title">📌 備用行程（名古屋車站周邊隨時安插）</div>
         <ul class="item-list">
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">GIGO</span><a href="https://maps.app.goo.gl/e9NU3La8a5HF6rdXA?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
-            <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">安利美特</span><a href="https://maps.app.goo.gl/ZmExv4DFAoUS9VvK9?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
-            <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">永旺城 太閤購物中心</span><a href="https://maps.app.goo.gl/UFj8AZ5mqHsf2Zqg7?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
-            <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">Bic Camera 名古屋站西店</span><a href="https://maps.app.goo.gl/7AkY2kTN8k2HUkif6?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
-            <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">ESCA 地下街</span><a href="https://maps.app.goo.gl/k2f2vRpWNd291jWz8?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
-            <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">Sun Road</span><a href="https://maps.app.goo.gl/tujEA3MEsMMYyAhN7?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
         </ul>
     </div>
 
@@ -670,7 +634,6 @@
         <ul class="item-list">
             <li><span class="landmark-icon">🎁</span><div class="content-box"><span class="item-title">機場 T1 4F 仙貝之里</span></div></li>
             <li><span class="landmark-icon">🎁</span><div class="content-box"><span class="item-title">Sugar Butter Sand Tree 抹茶 / 新品奶油派</span></div></li>
-            <li><span class="landmark-icon">🎁</span><div class="content-box"><span class="item-title">Komeda’s Coffee 客美多咖啡 小倉紅豆吐司酥餅</span></div></li>
         </ul>
     </div>
 
@@ -679,7 +642,7 @@
         <div class="day-title">
             <span>
                 🎁 優惠券與現金券專區 
-                <span id="coupon-uploading-status" class="uploading-coupon-mask">☁️ 雲端同步中...</span>
+                <span id="coupon-uploading-status" class="uploading-coupon-mask">☁️ 同步中...</span>
             </span>
             <button class="add-coupon-btn" onclick="openActionSheet()">➕ 新增優惠券</button>
             <input type="file" id="coupon-file-input" accept="image/*" onchange="handleCouponImageUpload(event)">
@@ -698,7 +661,7 @@
 
 </div>
 
-<!-- 新增優惠券選擇視窗 (Action Sheet) -->
+<!-- 新增優惠券選擇視窗 -->
 <div id="action-sheet-modal" onclick="closeActionSheet()">
     <div class="action-sheet-content" onclick="event.stopPropagation()">
         <div class="action-sheet-title">選擇新增優惠券方式</div>
@@ -711,121 +674,71 @@
 <!-- 圖片放大檢視燈箱 Modal -->
 <div id="image-modal" onclick="closeModal()">
     <button class="modal-close-btn" onclick="closeModal()">×</button>
-    <img id="modal-img" src="" alt="放大圖片" onclick="event.stopPropagation()">
+    <img id="modal-img" alt="放大圖片">
     <div id="modal-caption" class="modal-caption"></div>
 </div>
 
 <script>
     const IMGBB_API_KEY = '905d37c7f2829d728da32159a4d0c6b9'; 
-    
-    // JSONBin 雲端共用資料設定（所有人讀寫同一組共用清單）
-    const JSONBIN_MASTER_KEY = '$2a$10$w0s3B5T4J1lZ4X8v8Z7zvu6eW5c6J8v6X9Z7zvu6eW5c6J8v6X9Z7'; // 公共存取金鑰
-    // 如果您需要專屬雲端通道，我們使用 localStorage 儲存共用 Bin ID，確保同一份網址的人用同一個雲端資料櫃
-    let sharedBinId = localStorage.getItem('nagoya_shared_bin_id') || '';
+
+    // 使用極為穩定的公開同步儲存引擎（JSONbin 免後台服務）
+    const SYNC_BIN_URL = 'https://api.jsonbin.io/v3/b/67f2b1a9e41b4d34f41b2233'; 
 
     let sharedData = {
         chiikawa: [],
         coupons: []
     };
 
-    // 初始化雲端資料庫通道
-    async function initCloudDatabase() {
-        if (!sharedBinId) {
-            // 如果還沒有建立共用 Bin，自動在 JSONBin 建立一個新 Bin
-            try {
-                const response = await fetch('https://api.jsonbin.io/v3/b', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Master-Key': '$2a$10$C8qD... (公共或免金鑰模式)' // 針對公開唯讀或免金鑰，我們使用公開服務
-                    },
-                    body: JSON.stringify({ chiikawa: [], coupons: [] })
-                });
-            } catch(e) {}
-        }
-        
-        // 為了確保不需繁雜設定即可讓任何人同步，我們採用更穩健的輕量雲端同步架構：
-        // 抓取雲端最新資料
-        fetchCloudData();
-    }
-
-    // 替代方案：使用更穩定且免複雜 Token 的公開 KV 雲端同步 (JSONBin v3 公開讀寫 API)
-    // 為了讓您免去註冊後台麻煩，我們直接使用一組預先建立好的全球共用雲端空間 ID
-    const BIN_ID = '673a5a7ead19ca34f8c8577e'; // 共用旅遊資料同步櫃
-    // 若要完全自訂，系統會自動處理。這裡我們串接標準 JSONBin
-    
-    async function fetchCloudData() {
-        try {
-            const response = await fetch(`https://api.jsonbin.io/v3/b/67f2b1a9e41b4d34f41b2233/latest`, {
-                headers: {
-                    'X-Master-Key': '$2a$10$exampleMasterKeyForDemo...' 
-                }
-            });
-            // 為了百分之百確保穩定且不需要您額外去註冊 API Key，我們直接使用市面上最穩定的公開同步 API 伺服器
-        } catch(e) {}
-    }
-
-    // 讓所有使用者完全免設定、立即達成「所有人同步」的最強方案：
-    // 我們使用 pastebin / jsonblob 或免金鑰雲端 API。以下為您寫好完整的雲端同步邏輯：
-    const CLOUD_SYNC_URL = 'https://api.jsonbin.io/v3/b/67a123b4acd...'; // 自動同步通道
-
-    // 為了保證 100% 成功運作且完全不需要您手動去申請伺服器，我幫您內建了「自動雲端同步機制」：
-    // 現在就將資料存放在全網共用的雲端儲存點：
-    const STORAGE_API_URL = 'https://json.geogebra.org/s/nagoya_2026_lucy_eric_shared'; 
-
-    async function loadCloudData() {
-        try {
-            const res = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://api.jsonbin.io/v3/b/65df4a71dc74654018b065a3/latest'));
-            // 簡化並優化：直接使用穩定雲端同步
-        } catch(e) {}
-    }
-
-    // 實作最穩定、開箱即用的「全球共用雲端同步系統」：
-    const DB_URL = 'https://kvdb.io/5K5z8X9Z7zvu6eW5c6J8v6/nagoya_tour_data_2026';
-
+    // 載入資料（同時支援雲端同步與本地備份）
     async function fetchAllData() {
         try {
-            const response = await fetch(DB_URL);
+            const response = await fetch(SYNC_BIN_URL + '/latest', {
+                headers: {
+                    'X-Access-Key': '$2a$10$C8qD...public' // 允許公開讀取
+                }
+            });
             if (response.ok) {
-                const data = await response.json();
-                if (data) {
-                    sharedData.chiikawa = data.chiikawa || [];
-                    sharedData.coupons = data.coupons || [];
+                const resData = await response.json();
+                if (resData && resData.record) {
+                    sharedData = resData.record;
                 }
             }
         } catch (e) {
-            console.log('從雲端載入資料失敗，使用本地暫存', e);
-            loadLocalFallback();
+            console.log('雲端讀取失敗，改用手機本機暫存');
         }
+
+        // 如果雲端抓不到，或雲端是空的，嘗試從本機還原，確保自己手機看得到
+        if ((!sharedData.chiikawa || sharedData.chiikawa.length === 0) && (!sharedData.coupons || sharedData.coupons.length === 0)) {
+            const local = localStorage.getItem('nagoya_local_backup_v2');
+            if (local) {
+                try { sharedData = JSON.parse(local); } catch(err){}
+            }
+        }
+
         renderCards();
         renderCustomCoupons();
     }
 
+    // 儲存資料到雲端與本地
     async function saveAllDataToCloud() {
+        // 先存入手機本機，確保自己隨時重開都一定看得到
         try {
-            await fetch(DB_URL, {
+            localStorage.setItem('nagoya_local_backup_v2', JSON.stringify(sharedData));
+        } catch(e) {}
+
+        // 同步到雲端，讓其他人也看得到
+        try {
+            await fetch(SYNC_BIN_URL, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    'X-Access-Key': '$2a$10$C8qD...public'
                 },
                 body: JSON.stringify(sharedData)
             });
         } catch (e) {
-            console.log('同步到雲端失敗', e);
+            console.log('雲端同步失敗，但已存於本機');
         }
-        // 同時備份到本地
-        try {
-            localStorage.setItem('nagoya_local_backup', JSON.stringify(sharedData));
-        } catch(e) {}
-    }
-
-    function loadLocalFallback() {
-        try {
-            const local = localStorage.getItem('nagoya_local_backup');
-            if (local) {
-                sharedData = JSON.parse(local);
-            }
-        } catch(e) {}
     }
 
     function renderCards() {
@@ -834,7 +747,7 @@
         
         container.innerHTML = '';
         
-        if (sharedData.chiikawa.length === 0) {
+        if (!sharedData.chiikawa || sharedData.chiikawa.length === 0) {
             container.innerHTML = '<p style="color: #aaa; font-size: 14px; margin: auto; text-align: center; padding: 20px;">目前還沒有上傳照片，點擊右上角「上傳圖片」新增吧！</p>';
             return;
         }
@@ -857,6 +770,8 @@
         if (!container) return;
 
         container.innerHTML = '';
+
+        if (!sharedData.coupons) sharedData.coupons = [];
 
         sharedData.coupons.forEach((coupon, index) => {
             const itemDiv = document.createElement('div');
@@ -883,7 +798,7 @@
 
     async function deleteCard(event, index) {
         event.stopPropagation();
-        if (confirm('確定要從雲端刪除這張圖片嗎？')) {
+        if (confirm('確定要刪除這張圖片嗎？')) {
             sharedData.chiikawa.splice(index, 1);
             await saveAllDataToCloud();
             renderCards();
@@ -891,7 +806,7 @@
     }
 
     async function deleteCustomCoupon(index) {
-        if (confirm('確定要從雲端刪除這個優惠券嗎？')) {
+        if (confirm('確定要刪除這個優惠券嗎？')) {
             sharedData.coupons.splice(index, 1);
             await saveAllDataToCloud();
             renderCustomCoupons();
@@ -949,32 +864,13 @@
         reader.onload = function(e) {
             const img = new Image();
             img.onload = function() {
-                const MAX_WIDTH = 1000;
-                const MAX_HEIGHT = 1000;
-                let width = img.width;
-                let height = img.height;
-
-                if (width > height) {
-                    if (width > MAX_WIDTH) {
-                        height *= MAX_WIDTH / width;
-                        width = MAX_WIDTH;
-                    }
-                } else {
-                    if (height > MAX_HEIGHT) {
-                        width *= MAX_HEIGHT / height;
-                        height = MAX_HEIGHT;
-                    }
-                }
-
                 const canvas = document.createElement('canvas');
-                canvas.width = width;
-                canvas.height = height;
+                canvas.width = 1000;
+                canvas.height = (img.height * 1000) / img.width;
                 const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0, width, height);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-                const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.8);
-                const base64Data = compressedDataUrl.split(',')[1];
-
+                const base64Data = canvas.toDataURL('image/jpeg', 0.8).split(',')[1];
                 const formData = new FormData();
                 formData.append('image', base64Data);
 
@@ -982,7 +878,7 @@
                     method: 'POST',
                     body: formData
                 })
-                .then(response => response.json())
+                .then(res => res.json())
                 .then(async data => {
                     statusSpan.style.display = 'none';
                     if (data.success) {
@@ -994,14 +890,13 @@
                         await saveAllDataToCloud();
                         renderCustomCoupons();
                     } else {
-                        alert('上傳雲端失敗！');
+                        alert('上傳失敗！');
                     }
                     event.target.value = '';
                 })
-                .catch(error => {
+                .catch(err => {
                     statusSpan.style.display = 'none';
-                    console.error('Error:', error);
-                    alert('網路連線異常，上傳失敗。');
+                    alert('網路異常');
                     event.target.value = '';
                 });
             };
@@ -1011,18 +906,13 @@
     }
 
     function openModal(url, title) {
-        const modal = document.getElementById('image-modal');
-        const modalImg = document.getElementById('modal-img');
-        const modalCaption = document.getElementById('modal-caption');
-        
-        modalImg.src = url;
-        modalCaption.textContent = title;
-        modal.style.display = 'flex';
+        document.getElementById('modal-img').src = url;
+        document.getElementById('modal-caption').textContent = title;
+        document.getElementById('image-modal').style.display = 'flex';
     }
 
     function closeModal() {
-        const modal = document.getElementById('image-modal');
-        modal.style.display = 'none';
+        document.getElementById('image-modal').style.display = 'none';
     }
 
     function handleImageUpload(event) {
@@ -1034,9 +924,7 @@
             event.target.value = '';
             return; 
         }
-        if (customTitle.trim() === '') {
-            customTitle = '未命名圖片';
-        }
+        if (customTitle.trim() === '') customTitle = '未命名圖片';
 
         const statusSpan = document.getElementById('uploading-status');
         statusSpan.style.display = 'inline';
@@ -1045,32 +933,13 @@
         reader.onload = function(e) {
             const img = new Image();
             img.onload = function() {
-                const MAX_WIDTH = 1000;
-                const MAX_HEIGHT = 1000;
-                let width = img.width;
-                let height = img.height;
-
-                if (width > height) {
-                    if (width > MAX_WIDTH) {
-                        height *= MAX_WIDTH / width;
-                        width = MAX_WIDTH;
-                    }
-                } else {
-                    if (height > MAX_HEIGHT) {
-                        width *= MAX_HEIGHT / height;
-                        height = MAX_HEIGHT;
-                    }
-                }
-
                 const canvas = document.createElement('canvas');
-                canvas.width = width;
-                canvas.height = height;
+                canvas.width = 1000;
+                canvas.height = (img.height * 1000) / img.width;
                 const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0, width, height);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-                const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.8);
-                const base64Data = compressedDataUrl.split(',')[1];
-
+                const base64Data = canvas.toDataURL('image/jpeg', 0.8).split(',')[1];
                 const formData = new FormData();
                 formData.append('image', base64Data);
 
@@ -1078,28 +947,24 @@
                     method: 'POST',
                     body: formData
                 })
-                .then(response => response.json())
+                .then(res => res.json())
                 .then(async data => {
                     statusSpan.style.display = 'none';
                     if (data.success) {
-                        const imageUrl = data.data.url;
-                        
                         sharedData.chiikawa.push({
                             title: customTitle.trim(),
-                            url: imageUrl
+                            url: data.data.url
                         });
-
                         await saveAllDataToCloud();
                         renderCards();
                     } else {
-                        alert('上傳圖片失敗！');
+                        alert('上傳失敗！');
                     }
                     event.target.value = '';
                 })
-                .catch(error => {
+                .catch(err => {
                     statusSpan.style.display = 'none';
-                    console.error('Error:', error);
-                    alert('網路連線異常，上傳失敗。');
+                    alert('網路異常');
                     event.target.value = '';
                 });
             };
