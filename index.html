@@ -482,7 +482,7 @@
     <p>Lucy & Eric</p>
     
     <div class="nav-bar">
-        <a href="#important" class="nav-btn important-nav">‼️ 重要事項 ‼️</a>
+        <a href="#important" class="nav-btn important-nav">‼️️ 重要事項 ‼️</a>
         <a href="#chiikawa" class="nav-btn chiikawa-nav">🤍 吉伊卡哇專區</a>
         <a href="#day1" class="nav-btn">Day 1 (一)</a>
         <a href="#day2" class="nav-btn">Day 2 (二)</a>
@@ -502,7 +502,7 @@
 
     <div id="important" class="day-section" style="border: 2px solid var(--accent);">
         <div class="day-title important-title">
-            <span>‼️ 重要事項 ‼️</span>
+            <span>‼️ 重要事項 ‼️️</span>
         </div>
         <ul class="item-list">
             <li><span class="landmark-icon">✈</span><div class="content-box"><span class="item-title">護照與有效期限確認（需有6個月以上效期）</span></div></li>
@@ -518,7 +518,7 @@
         <div class="day-title chiikawa-title">
             <span>
                 🤍 吉伊卡哇專區 
-                <span id="uploading-status" class="uploading-mask">☁️ 雲端同步中...</span>
+                <span id="uploading-status" class="uploading-mask">☁️ 上傳至 ImgBB 中...</span>
             </span>
             <label class="upload-btn-label" for="upload-input">📱 上傳圖片</label>
             <input type="file" id="upload-input" accept="image/*" onchange="handleImageUpload(event)">
@@ -526,7 +526,7 @@
         <p style="font-size: 13px; color: #666; margin-bottom: 10px;">左右滑動可查看更多卡片，點擊圖片可放大檢視原圖。</p>
         
         <div class="card-container" id="card-container">
-            <p style="color: #aaa; font-size: 14px; margin: auto; text-align: center; padding: 20px;">載入雲端資料中...</p>
+            <p style="color: #aaa; font-size: 14px; margin: auto; text-align: center; padding: 20px;">目前尚無雲端圖片</p>
         </div>
     </div>
 
@@ -568,8 +568,8 @@
         <ul class="item-list">
             <li class="food-item"><span class="landmark-icon">🍽️</span><div class="content-box"><span class="item-title">築地銀章魚</span><a href="https://maps.app.goo.gl/TiCw2sU2jcawrTh39?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
             <li class="food-item"><span class="landmark-icon">🍽️</span><div class="content-box"><span class="item-title">銀之餡鯛魚燒</span><a href="https://maps.app.goo.gl/45y16So6BsiX92Cf6?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- 推薦脆皮的布丁口味</li></ul></div></li>
-            <li class="food-item"><span class="landmark-icon">🍽️️</span><div class="content-box"><span class="item-title">御手洗糰子</span><a href="https://maps.app.goo.gl/hbwoggW9g27Gxn28A?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
-            <li class="food-item"><span class="landmark-icon">🍽️</span><div class="content-box"><span class="item-title">Konparu Osu 炸蝦三明治</span><a href="https://maps.app.goo.gl/VGg1GowZCF8DvqKc9?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
+            <li class="food-item"><span class="landmark-icon">🍽</span><div class="content-box"><span class="item-title">御手洗糰子</span><a href="https://maps.app.goo.gl/hbwoggW9g27Gxn28A?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
+            <li class="food-item"><span class="landmark-icon">🍽️️</span><div class="content-box"><span class="item-title">Konparu Osu 炸蝦三明治</span><a href="https://maps.app.goo.gl/VGg1GowZCF8DvqKc9?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
             <li class="food-item"><span class="landmark-icon">🍽</span><div class="content-box"><span class="item-title">島正（關東煮）</span><a href="https://maps.app.goo.gl/KBYFqEJEjbpdTu9A9?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">大須觀音</span><a href="https://maps.app.goo.gl/frACBVoMPiyVtyDu5?g_st=ic" target="_blank" class="map-link">地圖</a><ul class="sub-notes"><li>- 幫我蓋御朱印</li></ul></div></li>
             <li><span class="landmark-icon">📍</span><div class="content-box"><span class="item-title">大須觀音商店街</span><a href="https://maps.app.goo.gl/cm7XqVbLcrVapbgq8?g_st=ic" target="_blank" class="map-link">地圖</a></div></li>
@@ -642,7 +642,7 @@
         <div class="day-title">
             <span>
                 🎁 優惠券與現金券專區 
-                <span id="coupon-uploading-status" class="uploading-coupon-mask">☁️ 同步中...</span>
+                <span id="coupon-uploading-status" class="uploading-coupon-mask">☁️ 上傳至 ImgBB 中...</span>
             </span>
             <button class="add-coupon-btn" onclick="openActionSheet()">➕ 新增優惠券</button>
             <input type="file" id="coupon-file-input" accept="image/*" onchange="handleCouponImageUpload(event)">
@@ -679,67 +679,13 @@
 </div>
 
 <script>
-    const IMGBB_API_KEY = '905d37c7f2829d728da32159a4d0c6b9'; 
+    const IMGBB_API_KEY = "905d37c7f2829d728da32159a4d0c6b9"; 
 
-    // 使用極為穩定的公開同步儲存引擎（JSONbin 免後台服務）
-    const SYNC_BIN_URL = 'https://api.jsonbin.io/v3/b/67f2b1a9e41b4d34f41b2233'; 
-
-    let sharedData = {
+    // ⚠️ 完全不使用 localStorage，純記憶體運作，藉此測試 ImgBB 上傳與渲染
+    let liveData = {
         chiikawa: [],
         coupons: []
     };
-
-    // 載入資料（同時支援雲端同步與本地備份）
-    async function fetchAllData() {
-        try {
-            const response = await fetch(SYNC_BIN_URL + '/latest', {
-                headers: {
-                    'X-Access-Key': '$2a$10$C8qD...public' // 允許公開讀取
-                }
-            });
-            if (response.ok) {
-                const resData = await response.json();
-                if (resData && resData.record) {
-                    sharedData = resData.record;
-                }
-            }
-        } catch (e) {
-            console.log('雲端讀取失敗，改用手機本機暫存');
-        }
-
-        // 如果雲端抓不到，或雲端是空的，嘗試從本機還原，確保自己手機看得到
-        if ((!sharedData.chiikawa || sharedData.chiikawa.length === 0) && (!sharedData.coupons || sharedData.coupons.length === 0)) {
-            const local = localStorage.getItem('nagoya_local_backup_v2');
-            if (local) {
-                try { sharedData = JSON.parse(local); } catch(err){}
-            }
-        }
-
-        renderCards();
-        renderCustomCoupons();
-    }
-
-    // 儲存資料到雲端與本地
-    async function saveAllDataToCloud() {
-        // 先存入手機本機，確保自己隨時重開都一定看得到
-        try {
-            localStorage.setItem('nagoya_local_backup_v2', JSON.stringify(sharedData));
-        } catch(e) {}
-
-        // 同步到雲端，讓其他人也看得到
-        try {
-            await fetch(SYNC_BIN_URL, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Access-Key': '$2a$10$C8qD...public'
-                },
-                body: JSON.stringify(sharedData)
-            });
-        } catch (e) {
-            console.log('雲端同步失敗，但已存於本機');
-        }
-    }
 
     function renderCards() {
         const container = document.getElementById('card-container');
@@ -747,12 +693,12 @@
         
         container.innerHTML = '';
         
-        if (!sharedData.chiikawa || sharedData.chiikawa.length === 0) {
-            container.innerHTML = '<p style="color: #aaa; font-size: 14px; margin: auto; text-align: center; padding: 20px;">目前還沒有上傳照片，點擊右上角「上傳圖片」新增吧！</p>';
+        if (liveData.chiikawa.length === 0) {
+            container.innerHTML = '<p style="color: #aaa; font-size: 14px; margin: auto; text-align: center; padding: 20px;">目前尚無雲端圖片，請點擊上傳測試</p>';
             return;
         }
 
-        sharedData.chiikawa.forEach((item, index) => {
+        liveData.chiikawa.forEach((item, index) => {
             const card = document.createElement('div');
             card.className = 'card';
             
@@ -771,9 +717,7 @@
 
         container.innerHTML = '';
 
-        if (!sharedData.coupons) sharedData.coupons = [];
-
-        sharedData.coupons.forEach((coupon, index) => {
+        liveData.coupons.forEach((coupon, index) => {
             const itemDiv = document.createElement('div');
             itemDiv.className = 'coupon-item';
 
@@ -796,21 +740,15 @@
         });
     }
 
-    async function deleteCard(event, index) {
+    function deleteCard(event, index) {
         event.stopPropagation();
-        if (confirm('確定要刪除這張圖片嗎？')) {
-            sharedData.chiikawa.splice(index, 1);
-            await saveAllDataToCloud();
-            renderCards();
-        }
+        liveData.chiikawa.splice(index, 1);
+        renderCards();
     }
 
-    async function deleteCustomCoupon(index) {
-        if (confirm('確定要刪除這個優惠券嗎？')) {
-            sharedData.coupons.splice(index, 1);
-            await saveAllDataToCloud();
-            renderCustomCoupons();
-        }
+    function deleteCustomCoupon(index) {
+        liveData.coupons.splice(index, 1);
+        renderCustomCoupons();
     }
 
     function openActionSheet() {
@@ -821,7 +759,7 @@
         document.getElementById('action-sheet-modal').style.display = 'none';
     }
 
-    async function selectAddUrl() {
+    function selectAddUrl() {
         closeActionSheet();
         const url = prompt('請貼上網址 (URL)：', '');
         if (url && url.trim() !== '') {
@@ -831,12 +769,11 @@
                 derivedTitle = parsedObj.hostname + parsedObj.pathname;
             } catch(err) {}
 
-            sharedData.coupons.push({
+            liveData.coupons.push({
                 type: 'url',
                 title: derivedTitle,
                 url: url.trim()
             });
-            await saveAllDataToCloud();
             renderCustomCoupons();
         }
     }
@@ -844,6 +781,63 @@
     function selectAddImage() {
         closeActionSheet();
         document.getElementById('coupon-file-input').click();
+    }
+
+    // 核心：直接上傳至 ImgBB 雲端並即時顯示
+    function uploadToImgBB(file, statusElementId, callback) {
+        const statusSpan = document.getElementById(statusElementId);
+        statusSpan.style.display = 'inline';
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const base64Image = e.target.result.split(',')[1];
+            
+            const formData = new FormData();
+            formData.append("key", IMGBB_API_KEY.trim());
+            formData.append("image", base64Image);
+
+            fetch("https://api.imgbb.com/1/upload", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                statusSpan.style.display = 'none';
+                if (data && data.success) {
+                    console.log("ImgBB 上傳成功網址：", data.data.url);
+                    callback(data.data.url);
+                } else {
+                    alert("上傳 ImgBB 失敗：" + (data.error ? data.error.message : "未知錯誤"));
+                }
+            })
+            .catch(error => {
+                statusSpan.style.display = 'none';
+                console.error("ImgBB 錯誤：", error);
+                alert("網路連線錯誤或 API 阻擋，請稍後再試。");
+            });
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function handleImageUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        let customTitle = prompt('請輸入這張圖片的名稱：', '吉伊卡哇戰利品');
+        if (customTitle === null) {
+            event.target.value = '';
+            return;
+        }
+        if (customTitle.trim() === '') customTitle = '未命名圖片';
+
+        uploadToImgBB(file, 'uploading-status', function(imageUrl) {
+            liveData.chiikawa.push({
+                title: customTitle.trim(),
+                url: imageUrl
+            });
+            renderCards();
+            event.target.value = '';
+        });
     }
 
     function handleCouponImageUpload(event) {
@@ -857,52 +851,15 @@
         }
         const derivedTitle = fileName.trim() !== '' ? fileName : '優惠券圖片';
 
-        const statusSpan = document.getElementById('coupon-uploading-status');
-        statusSpan.style.display = 'inline';
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const img = new Image();
-            img.onload = function() {
-                const canvas = document.createElement('canvas');
-                canvas.width = 1000;
-                canvas.height = (img.height * 1000) / img.width;
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-                const base64Data = canvas.toDataURL('image/jpeg', 0.8).split(',')[1];
-                const formData = new FormData();
-                formData.append('image', base64Data);
-
-                fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(res => res.json())
-                .then(async data => {
-                    statusSpan.style.display = 'none';
-                    if (data.success) {
-                        sharedData.coupons.push({
-                            type: 'image',
-                            title: derivedTitle,
-                            url: data.data.url
-                        });
-                        await saveAllDataToCloud();
-                        renderCustomCoupons();
-                    } else {
-                        alert('上傳失敗！');
-                    }
-                    event.target.value = '';
-                })
-                .catch(err => {
-                    statusSpan.style.display = 'none';
-                    alert('網路異常');
-                    event.target.value = '';
-                });
-            };
-            img.src = e.target.result;
-        };
-        reader.readAsDataURL(file);
+        uploadToImgBB(file, 'coupon-uploading-status', function(imageUrl) {
+            liveData.coupons.push({
+                type: 'image',
+                title: derivedTitle,
+                url: imageUrl
+            });
+            renderCustomCoupons();
+            event.target.value = '';
+        });
     }
 
     function openModal(url, title) {
@@ -915,66 +872,9 @@
         document.getElementById('image-modal').style.display = 'none';
     }
 
-    function handleImageUpload(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-
-        let customTitle = prompt('請輸入這張圖片的名稱：', '吉伊卡哇戰利品');
-        if (customTitle === null) {
-            event.target.value = '';
-            return; 
-        }
-        if (customTitle.trim() === '') customTitle = '未命名圖片';
-
-        const statusSpan = document.getElementById('uploading-status');
-        statusSpan.style.display = 'inline';
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const img = new Image();
-            img.onload = function() {
-                const canvas = document.createElement('canvas');
-                canvas.width = 1000;
-                canvas.height = (img.height * 1000) / img.width;
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-                const base64Data = canvas.toDataURL('image/jpeg', 0.8).split(',')[1];
-                const formData = new FormData();
-                formData.append('image', base64Data);
-
-                fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(res => res.json())
-                .then(async data => {
-                    statusSpan.style.display = 'none';
-                    if (data.success) {
-                        sharedData.chiikawa.push({
-                            title: customTitle.trim(),
-                            url: data.data.url
-                        });
-                        await saveAllDataToCloud();
-                        renderCards();
-                    } else {
-                        alert('上傳失敗！');
-                    }
-                    event.target.value = '';
-                })
-                .catch(err => {
-                    statusSpan.style.display = 'none';
-                    alert('網路異常');
-                    event.target.value = '';
-                });
-            };
-            img.src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-    }
-
     window.onload = function() {
-        fetchAllData();
+        renderCards();
+        renderCustomCoupons();
     };
 </script>
 
